@@ -161,7 +161,7 @@
 #ep-wrap .ep-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.88rem;table-layout:fixed;}
 #ep-wrap .ep-table th{background:rgba(225,29,72,.15);padding:10px 12px;text-align:left;border-bottom:2px solid var(--ep-accent);font-family:'Syne',sans-serif;word-break:keep-all;}
 #ep-wrap .ep-table td{padding:9px 12px;border-bottom:1px solid var(--ep-border);vertical-align:middle;line-height:1.65;word-break:break-word;text-align:justify;hyphens:auto;}
-#ep-wrap .ep-table td:first-child{font-weight:700;color:var(--ep-accent);font-family:'Syne',sans-serif;white-space:nowrap;width:140px;text-align:center;vertical-align:middle;hyphens:none;}
+#ep-wrap .ep-table td:first-child{font-weight:700;color:var(--ep-accent);font-family:'Syne',sans-serif;white-space:normal;width:150px;min-width:150px;max-width:150px;text-align:center;vertical-align:middle;hyphens:none;word-break:break-word;overflow-wrap:break-word;}
 #ep-wrap .ep-table tr:hover td{background:rgba(255,255,255,.02);}
 
 /* ETİKETLER */
