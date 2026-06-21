@@ -1,0 +1,733 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+#ep-wrap {
+  --ep-bg:#0d1117; --ep-text:#e2e8f0; --ep-panel:#111827; --ep-muted:#7c9cbd;
+  --ep-accent:#e11d48; --ep-accent2:#f59e0b; --ep-accent3:#a78bfa;
+  --ep-glass:rgba(255,255,255,.03); --ep-border:rgba(255,255,255,.08);
+  font-family:'DM Sans',sans-serif;
+  background:var(--ep-bg);
+  color:var(--ep-text);
+  line-height:1.8;
+  text-align:justify;
+  max-width:780px;
+  margin:0 auto;
+  padding:24px 24px 60px;
+  transition:background .4s,color .4s;
+}
+#ep-wrap[data-theme="light"] {
+  --ep-bg:#f0f4f8; --ep-text:#1a202c; --ep-panel:#ffffff; --ep-muted:#4a6280;
+  --ep-accent:#c41535; --ep-accent2:#b45309; --ep-accent3:#7c3aed;
+  --ep-glass:rgba(0,0,0,.02); --ep-border:rgba(0,0,0,.1);
+}
+#ep-wrap * { box-sizing:border-box; }
+#ep-wrap .ep-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:16px 0 20px;border-bottom:1px solid var(--ep-border);margin-bottom:28px;}
+#ep-wrap .ep-badge{background:linear-gradient(135deg,var(--ep-accent),var(--ep-accent2));padding:5px 14px;border-radius:100px;font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;color:#fff;letter-spacing:.08em;text-transform:uppercase;}
+#ep-wrap .ep-brand-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--ep-text);margin-top:5px;}
+#ep-wrap .ep-brand-sub{font-size:.78rem;color:var(--ep-muted);}
+#ep-wrap .ep-theme-btn{border:1px solid var(--ep-border);padding:7px 14px;border-radius:100px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;background:var(--ep-glass);color:var(--ep-text);transition:all .2s;}
+#ep-wrap .ep-theme-btn:hover{border-color:var(--ep-accent);color:var(--ep-accent);}
+#ep-wrap .ep-hero{background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(225,29,72,.18),transparent 70%),linear-gradient(135deg,#070c18,#0d1525);border-radius:20px;padding:44px 32px;text-align:center;margin-bottom:28px;border:1px solid var(--ep-border);overflow:hidden;}
+#ep-wrap .ep-hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(225,29,72,.1);border:1px solid rgba(225,29,72,.25);padding:5px 14px;border-radius:100px;font-size:.78rem;color:var(--ep-accent);margin-bottom:18px;font-weight:600;}
+#ep-wrap .ep-hero h1{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;line-height:1.15;margin-bottom:12px;text-wrap:balance;}
+#ep-wrap .ep-hero h1 span{background:linear-gradient(90deg,var(--ep-accent),var(--ep-accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+#ep-wrap .ep-hero .ep-lead{font-size:1rem;color:var(--ep-muted);max-width:520px;margin:0 auto 20px;}
+#ep-wrap .ep-pills{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;}
+#ep-wrap .ep-pill{padding:4px 12px;border-radius:100px;font-size:.75rem;font-weight:600;border:1px solid var(--ep-border);color:var(--ep-muted);background:var(--ep-glass);}
+#ep-wrap .ep-meta-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 20px;font-size:.8rem;color:var(--ep-muted);}
+#ep-wrap .ep-video{margin:0 0 28px;border-radius:16px;overflow:hidden;border:1px solid rgba(225,29,72,.25);}
+#ep-wrap .ep-video-cap{padding:12px 18px;background:linear-gradient(135deg,rgba(225,29,72,.07),rgba(245,158,11,.04));border-top:1px solid rgba(225,29,72,.2);font-size:.78rem;color:var(--ep-muted);font-style:italic;text-align:justify;hyphens:auto;}
+#ep-wrap .ep-summary{background:linear-gradient(135deg,rgba(225,29,72,.1),rgba(225,29,72,.03));border:1px solid rgba(225,29,72,.25);border-radius:16px;padding:24px 24px 24px 70px;margin:24px 0;position:relative;}
+#ep-wrap .ep-summary::before{content:"\1F4CB";font-size:1.8rem;position:absolute;top:20px;left:20px;}
+#ep-wrap .ep-summary h3{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;color:var(--ep-accent);margin-bottom:10px;}
+#ep-wrap .ep-summary p{font-size:.92rem;font-style:italic;color:var(--ep-text);opacity:.88;margin-bottom:8px;}
+#ep-wrap .ep-summary .ep-note{font-size:.78rem;color:var(--ep-muted);font-style:normal;}
+#ep-wrap .ep-steps{display:flex;flex-direction:column;margin:20px 0;}
+#ep-wrap .ep-step{display:flex;gap:16px;align-items:flex-start;padding:18px;background:var(--ep-panel);border:1px solid var(--ep-border);}
+#ep-wrap .ep-step:first-child{border-radius:14px 14px 0 0;}
+#ep-wrap .ep-step:last-child{border-radius:0 0 14px 14px;}
+#ep-wrap .ep-step-num{width:40px;height:40px;border-radius:50%;background:var(--ep-accent);color:#fff;font-weight:700;font-family:'Syne',sans-serif;font-size:1.1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+#ep-wrap .ep-step-body h4{margin:0 0 4px;color:var(--ep-accent);font-family:'Syne',sans-serif;font-size:.9rem;}
+#ep-wrap .ep-step-body p{margin:0;font-size:.88rem;opacity:.8;}
+#ep-wrap .ep-connector{width:2px;background:rgba(225,29,72,.3);height:20px;margin-left:19px;}
+#ep-wrap .ep-quote{border-left:3px solid var(--ep-accent2);padding:14px 20px;margin:20px 0;background:rgba(245,158,11,.05);border-radius:0 12px 12px 0;font-style:italic;font-size:1rem;}
+#ep-wrap .ep-quote cite{display:block;margin-top:8px;font-style:normal;font-size:.78rem;color:var(--ep-muted);}
+#ep-wrap .ep-box{border-radius:14px;padding:18px 22px;margin:20px 0;font-size:.92rem;}
+#ep-wrap .ep-box-red{background:rgba(225,29,72,.07);border:1px solid rgba(225,29,72,.2);}
+#ep-wrap .ep-box-red strong{color:var(--ep-accent);}
+#ep-wrap .ep-box-warn{background:rgba(245,87,108,.07);border:1px solid rgba(245,87,108,.2);}
+#ep-wrap .ep-box-warn strong{color:#f5576c;}
+#ep-wrap .ep-box-gold{background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);}
+#ep-wrap .ep-box-gold strong{color:#c9a84c;}
+#ep-wrap .ep-box-green{background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.2);}
+#ep-wrap .ep-box-green strong{color:#22c55e;}
+#ep-wrap .ep-think{background:rgba(167,139,250,.08);border-left:4px solid var(--ep-accent3);padding:16px 18px 16px 60px;border-radius:12px;margin:24px 0;font-style:italic;position:relative;font-size:.92rem;}
+#ep-wrap .ep-think::before{content:"\1F4A1";font-size:1.6rem;position:absolute;top:14px;left:14px;}
+#ep-wrap .ep-think strong{display:block;margin-bottom:6px;font-style:normal;color:var(--ep-accent3);}
+#ep-wrap .ep-section{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--ep-accent);margin:32px 0 14px;display:flex;align-items:center;gap:10px;border-bottom:2px solid rgba(225,29,72,.2);padding-bottom:8px;text-wrap:balance;}
+#ep-wrap .ep-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:20px 0;}
+#ep-wrap .ep-card{background:var(--ep-panel);border:1px solid var(--ep-border);border-radius:14px;padding:18px;transition:border-color .2s,transform .2s;}
+#ep-wrap .ep-card:hover{border-color:var(--ep-accent);transform:translateY(-2px);}
+#ep-wrap .ep-card .ep-icon{font-size:1.6rem;margin-bottom:10px;}
+#ep-wrap .ep-card h4{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;margin-bottom:6px;color:var(--ep-accent);}
+#ep-wrap .ep-card p{font-size:.82rem;opacity:.72;line-height:1.6;}
+#ep-wrap .ep-tags{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0 0;}
+#ep-wrap .ep-tag{padding:6px 16px;border-radius:100px;font-size:.78rem;font-weight:600;border:1px solid var(--ep-border);color:var(--ep-muted);background:var(--ep-glass);}
+#ep-wrap .ep-divider{height:1px;background:linear-gradient(90deg,transparent,var(--ep-border),transparent);margin:28px 0;}
+#ep-wrap .ep-intro{font-size:.95rem;opacity:.85;margin:24px 0 16px;line-height:1.8;}
+#ep-wrap .ep-p{font-size:.96rem;line-height:1.9;margin:16px 0;opacity:.9;}
+#ep-wrap .ep-kw{color:var(--ep-accent2);font-weight:600;}
+#ep-wrap .ep-kw2{color:var(--ep-accent3);font-weight:600;}
+#ep-wrap .ep-export{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.3);border-radius:14px;padding:14px 20px;margin:28px 0;}
+#ep-wrap .ep-export-info{display:flex;align-items:center;gap:10px;flex:1;min-width:180px;}
+#ep-wrap .ep-export-icon{width:34px;height:34px;border-radius:8px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+#ep-wrap .ep-export-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;color:#e8c97a;}
+#ep-wrap .ep-export-sub{font-size:.68rem;color:var(--ep-muted);margin-top:2px;}
+#ep-wrap .ep-btn{padding:9px 18px;border-radius:8px;font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:all .2s;white-space:nowrap;border:1px solid;}
+#ep-wrap .ep-btn-pdf{background:#1a3a6e;border-color:rgba(56,189,248,.4);color:#7ab8ff;}
+#ep-wrap .ep-btn-pdf:hover{background:#1e4a8a;}
+#ep-wrap .ep-btn-word{background:#0f3020;border-color:rgba(34,197,94,.4);color:#4ade80;}
+#ep-wrap .ep-btn-word:hover{background:#163d28;}
+#ep-wrap .ep-author{display:flex;align-items:center;gap:18px;background:var(--ep-panel);border:1px solid var(--ep-border);border-radius:16px;padding:20px 24px;margin:28px 0;flex-wrap:wrap;}
+#ep-wrap .ep-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--ep-accent),var(--ep-accent2));display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;}
+#ep-wrap .ep-author-info{flex:1;min-width:180px;}
+#ep-wrap .ep-author-name{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--ep-text);margin-bottom:3px;}
+#ep-wrap .ep-author-role{font-size:.78rem;color:var(--ep-accent);margin-bottom:5px;}
+#ep-wrap .ep-author-bio{font-size:.8rem;color:var(--ep-muted);line-height:1.6;}
+#ep-wrap .ep-author-link{display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-size:.75rem;font-weight:600;color:var(--ep-accent);text-decoration:none;border:1px solid rgba(225,29,72,.3);border-radius:100px;padding:3px 10px;background:rgba(225,29,72,.06);}
+#ep-wrap .ep-share{margin:28px 0 0;}
+#ep-wrap .ep-share-label{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ep-muted);margin-bottom:10px;}
+#ep-wrap .ep-share-btns{display:flex;flex-wrap:wrap;gap:9px;}
+#ep-wrap .ep-share-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:100px;font-family:'Syne',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;text-decoration:none;border:1px solid var(--ep-border);background:var(--ep-glass);color:var(--ep-text);transition:all .2s;}
+#ep-wrap .ep-share-btn:hover{transform:translateY(-2px);}
+#ep-wrap .ep-tw{border-color:rgba(29,161,242,.35);color:#1da1f2;}
+#ep-wrap .ep-wa{border-color:rgba(37,211,102,.35);color:#25d366;}
+#ep-wrap .ep-cp{border-color:rgba(167,139,250,.35);color:var(--ep-accent3);}
+#ep-wrap .ep-ml{border-color:rgba(225,29,72,.35);color:var(--ep-accent);}
+#ep-wrap .ep-cta{text-align:center;margin:36px 0 16px;}
+#ep-wrap .ep-cta-btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--ep-accent),var(--ep-accent2));color:#fff;border:none;padding:16px 36px;border-radius:100px;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;text-decoration:none;box-shadow:0 8px 28px rgba(225,29,72,.35);transition:opacity .2s,transform .2s;}
+#ep-wrap .ep-cta-btn:hover{opacity:.88;transform:translateY(-2px);}
+#ep-wrap .ep-cta-sub{font-size:.8rem;color:var(--ep-muted);margin-top:10px;}
+#ep-wrap .ep-footer{text-align:justify;hyphens:auto;padding:24px 0 0;color:var(--ep-muted);font-size:.82rem;border-top:1px solid var(--ep-border);}
+#ep-wrap .ep-footer strong{color:var(--ep-accent);}
+#ep-wrap figcaption{text-align:justify;hyphens:auto;}
+#ep-wrap .ep-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0;}
+#ep-wrap .ep-table-wrap table{min-width:480px;}
+/* Soru kutusu */
+#ep-wrap .ep-qbox{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.22);border-radius:12px;padding:14px 18px;margin:10px 0;}
+#ep-wrap .ep-qbox .ep-qnum{font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;color:var(--ep-accent2);margin-bottom:5px;}
+#ep-wrap .ep-qbox .ep-qtext{font-size:.91rem;color:var(--ep-text);line-height:1.75;}
+/* Görsel */
+#ep-wrap .ep-fig{width:100%;border-radius:12px;border:1px solid var(--ep-border);display:block;margin:20px 0 6px;}
+#ep-wrap .ep-fig-cap{font-size:.78rem;color:var(--ep-muted);font-style:italic;text-align:justify;hyphens:auto;margin-bottom:20px;}
+@media(max-width:600px){
+  #ep-wrap .ep-hero h1{font-size:1.6rem;}
+  #ep-wrap .ep-hero{padding:32px 20px;}
+  #ep-wrap .ep-author{flex-direction:column;text-align:center;}
+  #ep-wrap .ep-cards{grid-template-columns:1fr;}
+}
+</style>
+
+<div id="ep-wrap">
+
+<!-- HEADER -->
+<div class="ep-header">
+  <div>
+    <div class="ep-badge">Review Article · EduPanel</div>
+    <div class="ep-brand-title">Is Soil Classification Truly Measured?</div>
+    <div class="ep-brand-sub">Vs₃₀ · Earthquake Engineering · TBDY-2018 · <span style="opacity:.6;">Haziran 2026</span></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:7px;background:linear-gradient(135deg,rgba(59,158,255,0.12),rgba(30,80,140,0.18));border:1px solid rgba(59,158,255,0.35);border-radius:100px;padding:5px 12px 5px 10px;">
+      <span style="font-size:1em;line-height:1;">🌐</span>
+      <span style="font-size:0.68rem;font-weight:700;color:#90caf9;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;">Language</span>
+      <div id="google_translate_element" style="display:flex;align-items:center;"></div>
+    </div>
+    <button id="tts-btn" title="Sesli oku / Listen" style="padding:7px 13px;background:linear-gradient(135deg,#1e3a5f,#1e40af);border:1px solid rgba(59,158,255,0.45);border-radius:100px;color:#90caf9;font-weight:700;font-size:.76rem;cursor:pointer;white-space:nowrap;transition:background .2s;">🔊 Dinle</button>
+    <button class="ep-theme-btn" id="ep-theme-btn"><span id="ep-theme-icon">🌙</span> Tema</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="ep-hero">
+  <div class="ep-hero-tag">🌍 Earthquake Engineering · Haziran 2026</div>
+  <h1>Zemin Sınıflandırması <span>Gerçekten Ölçülüyor mu?</span></h1>
+  <p class="ep-lead">Vs₃₀ ölçüm standartları, yetkinlik &amp; denetim süreçleri ve tapu kayıtlarına entegrasyonun önemi &#x2014; deprem güvenliği için temel adımlar.</p>
+  <div class="ep-pills">
+    <span class="ep-pill">📐 Vs₃₀</span>
+    <span class="ep-pill">🏗️ MASW · Downhole · ReMi</span>
+    <span class="ep-pill">📋 TBDY-2018</span>
+    <span class="ep-pill">🏛️ Eurocode 8</span>
+    <span class="ep-pill">📜 Tapu Entegrasyonu</span>
+  </div>
+</div>
+
+<!-- VİDEO 1 -->
+<div class="ep-video">
+  <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;">
+    <iframe src="https://www.youtube.com/embed/rA2dZlkx1l8?rel=0&amp;showinfo=0"
+      title="Vs30 ve Zemin Sınıflandırması — Prof. Dr. Ali Osman Öncel"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
+  </div>
+  <div class="ep-video-cap">🎬 Vs₃₀ Ölçüm Yöntemleri ve Zemin Dinamiği &middot; Prof. Dr. Ali Osman Öncel &middot; Haziran 2026</div>
+</div>
+
+<!-- META -->
+<div class="ep-meta-row">
+  <span>📅 Haziran 2026</span>
+  <span>⏱️ <span id="ep-read-time">~7 dk</span> okuma</span>
+  <span>✍️ Review Article</span>
+  <span>📡 JeoTurizm EduPanel</span>
+</div>
+
+<!-- ÖZET -->
+<div class="ep-summary">
+  <h3>Yazının Özü / Abstract</h3>
+  <p>Deprem mühendisliğinde zemin koşullarının doğru tanımlanması hayati öneme sahiptir. Vs₃₀ parametresi, zemin sınıflandırması ve sismik tasarım için temel veri olarak kullanılır. Bu çalışma; ölçüm kalitesi için yetkinlik ve denetim süreçlerinin önemini ve Vs₃₀ verilerinin tapu kayıtlarına entegrasyonunun faydalarını ele almaktadır.</p>
+  <p><em>In earthquake engineering, the accurate characterization of soil conditions is critical for seismic design. This paper addresses quality assurance in Vs₃₀ measurements and the benefits of integrating soil data into land registry systems.</em></p>
+  <p class="ep-note">📍 Hedef kitle: Jeofizik mühendisleri, inşaat mühendisleri, kentsel planlama uzmanları ve gayrimenkul sektörü.</p>
+</div>
+
+<!-- STAT KUTULARI -->
+<table style="width:100%;border-collapse:separate;border-spacing:10px;margin:24px 0;table-layout:fixed;">
+  <tr>
+    <td style="width:50%;background:linear-gradient(135deg,rgba(225,29,72,.1),rgba(225,29,72,.03));border:1px solid rgba(225,29,72,.2);border-radius:14px;padding:18px 12px;text-align:center;vertical-align:top;">
+      <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:#e11d48;line-height:1.2;">5</div>
+      <div style="font-size:.78rem;color:#7c9cbd;margin-top:6px;">Zemin Sınıfı</div>
+      <div style="font-size:.68rem;color:#7c9cbd;opacity:.7;margin-top:3px;">ZA · ZB · ZC · ZD · ZE</div>
+    </td>
+    <td style="width:50%;background:linear-gradient(135deg,rgba(225,29,72,.1),rgba(225,29,72,.03));border:1px solid rgba(225,29,72,.2);border-radius:14px;padding:18px 12px;text-align:center;vertical-align:top;">
+      <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:#e11d48;line-height:1.2;">30 m</div>
+      <div style="font-size:.78rem;color:#7c9cbd;margin-top:6px;">Ölçüm Derinliği</div>
+      <div style="font-size:.68rem;color:#7c9cbd;opacity:.7;margin-top:3px;">Yüzeyden itibaren standart</div>
+    </td>
+  </tr>
+  <tr>
+    <td style="width:50%;background:linear-gradient(135deg,rgba(225,29,72,.1),rgba(225,29,72,.03));border:1px solid rgba(225,29,72,.2);border-radius:14px;padding:18px 12px;text-align:center;vertical-align:top;">
+      <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:#e11d48;line-height:1.2;">3</div>
+      <div style="font-size:.78rem;color:#7c9cbd;margin-top:6px;">Saha Yöntemi</div>
+      <div style="font-size:.68rem;color:#7c9cbd;opacity:.7;margin-top:3px;">MASW · Downhole · ReMi</div>
+    </td>
+    <td style="width:50%;background:linear-gradient(135deg,rgba(225,29,72,.1),rgba(225,29,72,.03));border:1px solid rgba(225,29,72,.2);border-radius:14px;padding:18px 12px;text-align:center;vertical-align:top;">
+      <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:#e11d48;line-height:1.2;">2018</div>
+      <div style="font-size:.78rem;color:#7c9cbd;margin-top:6px;">TBDY Yönetmeliği</div>
+      <div style="font-size:.68rem;color:#7c9cbd;opacity:.7;margin-top:3px;">Eurocode 8 · NEHRP uyumlu</div>
+    </td>
+  </tr>
+</table>
+
+<div class="ep-divider"></div>
+
+<!-- ÖLÇÜM YÖNTEMLERİ -->
+<div class="ep-section">⚙️ Vs₃₀ Ölçüm Yöntemleri</div>
+<div class="ep-steps">
+  <div class="ep-step">
+    <div class="ep-step-num">01</div>
+    <div class="ep-step-body">
+      <h4>MASW — Multichannel Analysis of Surface Waves</h4>
+      <p>Çok kanallı yüzey dalgası analizi. Yüzey boyunca dizilen jeofon dizileri ile kayma dalgası hızı profili çıkarılır. Hızlı, ekonomik ve geniş alan taraması için idealdir.</p>
+    </div>
+  </div>
+  <div class="ep-connector"></div>
+  <div class="ep-step">
+    <div class="ep-step-num">02</div>
+    <div class="ep-step-body">
+      <h4>Downhole &amp; Crosshole — Sondaj Sismik Testleri</h4>
+      <p>Sondaj kuyusu içi (downhole) veya kuyular arası (crosshole) doğrudan ölçüm yöntemleri. 30 m derinliğe kadar kat kat Vs profili verir; en yüksek doğruluk sağlar.</p>
+    </div>
+  </div>
+  <div class="ep-connector"></div>
+  <div class="ep-step">
+    <div class="ep-step-num">03</div>
+    <div class="ep-step-body">
+      <h4>ReMi — Refraction Microtremor</h4>
+      <p>Mikrotremör kırınımı yöntemi. Pasif sismik kayıt kullanır, gürültülü kentsel ortamlarda da uygulanabilir. MASW ile birlikte kullanılarak güvenilirlik artırılır.</p>
+    </div>
+  </div>
+</div>
+
+<div class="ep-divider"></div>
+
+<!-- ZEMİN SINIFLANDIRMA TABLOSU -->
+<div class="ep-section">📋 Zemin Sınıflandırma Tablosu / Soil Classification</div>
+
+<div class="ep-table-wrap">
+<table class="ep-table" style="width:100%;border-collapse:collapse;margin:16px 0;font-size:.88rem;table-layout:auto;">
+  <thead>
+    <tr>
+      <th style="background:rgba(225,29,72,.15);padding:10px 12px;text-align:left;border-bottom:2px solid #e11d48;font-family:'Syne',sans-serif;width:80px;white-space:nowrap;">Sınıf</th>
+      <th style="background:rgba(225,29,72,.15);padding:10px 12px;text-align:left;border-bottom:2px solid #e11d48;font-family:'Syne',sans-serif;">Açıklama / Description</th>
+      <th style="background:rgba(225,29,72,.15);padding:10px 12px;text-align:left;border-bottom:2px solid #e11d48;font-family:'Syne',sans-serif;white-space:nowrap;">Vs₃₀ (m/s)</th>
+      <th style="background:rgba(225,29,72,.15);padding:10px 12px;text-align:left;border-bottom:2px solid #e11d48;font-family:'Syne',sans-serif;">Sismik Risk</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);white-space:nowrap;font-weight:700;color:#22c55e;vertical-align:top;"><strong>ZA</strong></td>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;">Çok Sert Kaya / Very Hard Rock</td>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;white-space:nowrap;">&gt; 1500</td>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;">En düşük büyütme</td>
+    </tr>
+    <tr>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);white-space:nowrap;font-weight:700;color:#3b9eff;vertical-align:top;"><strong>ZB</strong></td>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;">Kaya / Rock</td>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;white-space:nowrap;">760 – 1500</td>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;">Düşük büyütme</td>
+    </tr>
+    <tr>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);white-space:nowrap;font-weight:700;color:#f5a623;vertical-align:top;"><strong>ZC</strong></td>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;">Sıkı Kum / Çakıl / Dense Sand / Gravel</td>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;white-space:nowrap;">360 – 760</td>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;">Orta büyütme</td>
+    </tr>
+    <tr>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);white-space:nowrap;font-weight:700;color:#f5a623;vertical-align:top;"><strong>ZD</strong></td>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;">Yumuşak Kohezyonlu / Soft Cohesive Soil</td>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;white-space:nowrap;">180 – 360</td>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;">Yüksek büyütme</td>
+    </tr>
+    <tr>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);white-space:nowrap;font-weight:700;color:#f5576c;vertical-align:top;"><strong>ZE</strong></td>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;">Gevşek Dolgu / Alluviyal / Loose Fill / Alluvial</td>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;white-space:nowrap;">&lt; 180</td>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;">Çok yüksek büyütme ⚠️</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="ep-divider"></div>
+
+<!-- GİRİŞ METNİ -->
+<div class="ep-section">📝 1. Giriş / Introduction</div>
+
+<p class="ep-p">Deprem mühendisliğinde, yapıların maruz kalacağı sismik yüklerin belirlenmesinde zemin koşullarının doğru tanımlanması hayati öneme sahiptir. Bu bağlamda, zemin dinamiğinin temel parametrelerinden biri olan <strong class="ep-kw">Vs₃₀</strong> (yer yüzeyinden 30 metre derinliğe kadar ortalama kayma dalgası hızı) kullanılarak zemin sınıflandırması yapılır. Doğru ölçülen Vs₃₀ değerleri, deprem yer hareketlerinin yapıya etkisini öngörmede kritik rol oynar.</p>
+
+<p class="ep-p"><em>In earthquake engineering, accurately defining the seismic loads that structures will experience critically depends on the precise characterization of underlying soil conditions. The <strong class="ep-kw">Vs₃₀</strong> parameter — the average shear-wave velocity over the upper 30 meters of soil — is fundamental for soil classification and seismic design. Correct Vs₃₀ measurements enable reliable prediction of ground motions and structural response.</em></p>
+
+<div class="ep-quote">
+  "Zemin sınıfı yanlış belirlenen bir yapı, en güçlü tasarımla dahi yetersiz kalabilir."
+  <cite>&#x2014; Kramer, S. L. (1996). <em>Geotechnical Earthquake Engineering</em>. Prentice Hall.</cite>
+</div>
+
+<!-- YETKİNLİK VE DENETİM -->
+<div class="ep-section">🔬 2. Yetkinlik, Lisanslama ve Denetim</div>
+
+<p class="ep-p">Vs₃₀ ölçümlerinin güvenilirliğinin sağlanması için <strong class="ep-kw">ölçüm yapan personelin tam kapsamlı bir lisanslama ve sertifikalandırma sistemine</strong> tabi tutulması, yetkinliklerin düzenli sınavlarla doğrulanması ve kullanılan ekipmanların <strong class="ep-kw">sürekli denetimlerle</strong> kontrol edilmesi gerekmektedir.</p>
+
+<div class="ep-box ep-box-warn">
+  <strong>⚠️ Uygulamada Karşılaşılan Zorluklar:</strong>
+  <ul style="margin:10px 0 0;padding-left:1.4em;line-height:1.9;">
+    <li>Ölçümlerin bazı durumlarda <strong>yetersiz teknik donanımla</strong> yapılması</li>
+    <li><strong>Standart dışı ekipman kullanımı</strong></li>
+    <li>Personelin <strong>yetkinlik seviyesinin değişken</strong> olması</li>
+  </ul>
+</div>
+
+<div class="ep-box ep-box-green">
+  <strong>✅ Çözüm: Lisanslama &amp; Denetim Sistemi</strong>
+  <ul style="margin:10px 0 0;padding-left:1.4em;line-height:1.9;">
+    <li>Personelin <strong>tam kapsamlı sertifikalandırma sistemine</strong> dahil edilmesi</li>
+    <li>Yetkinliklerin <strong>düzenli sınavlar ve eğitimlerle</strong> doğrulanması</li>
+    <li>Ekipmanların <strong>uluslararası standartlara uygunluğunun denetlenmesi</strong></li>
+  </ul>
+</div>
+
+<!-- KART GRUBU -->
+<div class="ep-section">🏛️ 3. Tapu Entegrasyonunun Faydaları</div>
+<div class="ep-cards">
+  <div class="ep-card">
+    <div class="ep-icon">🔍</div>
+    <h4>Şeffaflık</h4>
+    <p>Gayrimenkulün deprem riskinin şeffaf ve erişilebilir hale getirilmesi. Her vatandaş tapu ile birlikte zemin sınıfını öğrenebilir.</p>
+  </div>
+  <div class="ep-card">
+    <div class="ep-icon">🏘️</div>
+    <h4>Kentsel Planlama</h4>
+    <p>Zemin verilerine dayalı bilimsel kentsel planlama ve afet yönetimi kararları. ZE sınıfı bölgelerde yapılaşma kısıtlamaları.</p>
+  </div>
+  <div class="ep-card">
+    <div class="ep-icon">🛡️</div>
+    <h4>Sigorta Sektörü</h4>
+    <p>Risk bazlı sigorta primlendirmesi. ZA–ZB zeminlerde daha düşük, ZD–ZE zeminlerde daha yüksek prim hesabı.</p>
+  </div>
+  <div class="ep-card">
+    <div class="ep-icon">📢</div>
+    <h4>Farkındalık</h4>
+    <p>Yapı sahipleri ve yatırımcıların bilinçlendirilmesi. "Hangi zemin üzerinde yaşıyorum?" sorusuna bilimsel yanıt.</p>
+  </div>
+</div>
+
+<!-- DÜŞÜNCE KUTUSU -->
+<div class="ep-think">
+  <strong>Kritik Soru / Key Question</strong>
+  Türkiye'de tapu kayıtlarında zemin sınıfı bilgisi yer almıyor. Oysa bir yapının güvenliği, mühendislik tasarımı kadar, üzerine inşa edildiği zeminin jeofizik kalitesiyle de doğrudan ilişkilidir. Bu bilginin tapuya eklenmesi için hukuki altyapı geliştirilmeli ve kamu–özel–akademi işbirliği sağlanmalıdır.
+</div>
+
+<div class="ep-divider"></div>
+
+<!-- VİDEO 2 -->
+<div class="ep-video">
+  <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;">
+    <iframe src="https://www.youtube.com/embed/NlUt5OFGaGE?rel=0&amp;showinfo=0"
+      title="Zemin Sınıflandırması ve Tapu Entegrasyonu — Prof. Dr. Ali Osman Öncel"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
+  </div>
+  <div class="ep-video-cap">🎬 Zemin Sınıflandırması ve Tapu Entegrasyonu &middot; Prof. Dr. Ali Osman Öncel &middot; Haziran 2026</div>
+</div>
+
+<!-- GÖRSELLER -->
+<div class="ep-section">🖼️ Görseller / Supporting Figures</div>
+
+<img class="ep-fig" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjAE_BUWcRjAXZkc-0L600VSlN31GzmaSYSLtJddt8ACWeM7ccnotAlGgkYwqsTQ1YCf3dm3ObbigUU61lcR2Vuli1l25Zl_0FNDZJP0zXN7ZqVQLIoPoAmJAcLkS-NyCRlLDU2F-St_efoO7gZpA7G2p0-Y_8KV9wb5QSNfSWQGkXNTmSFReUygEpG0BU/s1080/3.jpg" alt="Zemin kalitesi ve deprem güvenliği" loading="lazy"/>
+<div class="ep-fig-cap"><strong>Şekil 1.</strong> Deprem mühendisliği standartlarına göre, yapılaşmaya uygunluk değerlendirmelerinde zemin kalitesinin belirlenmesi kritik öneme sahiptir. VS₃₀ değerinin doğru şekilde belirlenmesi, Eurocode 8 ve TBDY-2018 yönetmelikleri tarafından zorunlu tutulmaktadır. ZA–ZB sınıfları yüksek kaliteli zeminleri, ZD–ZE ise yüksek risk barındıran zeminleri temsil eder.</div>
+
+<img class="ep-fig" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgX6VO5WvLaFQYY_qqtrBg8xW8Gixz7WkpCfdHtl-vib7Frn_EOYethcJIdZWpGfQRRocqy_IMTwGBZssU4acj7BGUT6sORT5pPrkL6AVm-Pb8XbHGkQ0svNK5yfcT3T2geyNqKCxJLtC20fcSCCH7kyW6v3j5XEf8bGNMuCrsecK6JPCcimorKC0xE7UM/s1080/2.jpg" alt="Sismoloji eğitimi" loading="lazy"/>
+<div class="ep-fig-cap"><strong>Şekil 2.</strong> ABD'deki önde gelen üniversitelerde sismoloji lisansüstü programları ayrı disiplinler olarak yapılandırılmıştır. Türkiye'de "Sismoloji Mühendisliği" adı altında bağımsız bir bölümün kurulması, nitelikli uzmanların yetiştirilmesini sağlayacaktır.</div>
+
+<img class="ep-fig" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJq-ry4kd8CwX29vB8rlaHkP2kOcfn1vx0kgI1BPCEebdwB0wsWZ5-ObuJ3F_SiyziGPlGyYpU6KvJjn8VaL9kVa5SlNfc9KPoeMrBbpLZ8ZVnnU7-Hsm44r9c8lT0X45x8C9mzk67q50Tj_JIBnO9bC9Mw4rQEt3twDxDTfzn7_rTbI6O2t0YWwZM4OA/s1080/1.jpg" alt="Yerel zemin sınıfları TBDY 2018" loading="lazy"/>
+<div class="ep-fig-cap"><strong>Şekil 3.</strong> TBDY 2018 kapsamında tanımlanan Yerel Zemin Sınıfları (ZA–ZE) ve yapı güvenliğine etkileri. Zemin kalitesi bir depremin bina üzerindeki etkisini doğrudan değiştirir ve yaşam güvenliğini belirleyen temel faktörlerden biridir. Yeni konut alımlarında bu bilginin talep edilmesi kritik önem taşır.</div>
+
+<div class="ep-divider"></div>
+
+<!-- SORU KUTUCUKLARI 1 -->
+<div class="ep-section">❓ Soru Kutucukları 1 / Question Boxes 1</div>
+
+<div class="ep-qbox">
+  <div class="ep-qnum">Soru / Question 1</div>
+  <div class="ep-qtext">Vs₃₀ parametresi neyi ifade eder ve neden deprem tasarımında önemlidir? / <em>What does Vs₃₀ represent, and why is it important in seismic design?</em></div>
+</div>
+<div class="ep-qbox">
+  <div class="ep-qnum">Soru / Question 2</div>
+  <div class="ep-qtext">Vs₃₀ ölçümünde kullanılan başlıca saha yöntemleri nelerdir? / <em>What are the main field methods used to measure Vs₃₀?</em></div>
+</div>
+<div class="ep-qbox">
+  <div class="ep-qnum">Soru / Question 3</div>
+  <div class="ep-qtext">Yetkinlik, lisanslama ve denetimin Vs₃₀ ölçüm kalitesine etkisi nedir? / <em>How do competency, licensing, and auditing influence the quality of Vs₃₀ measurements?</em></div>
+</div>
+
+<div class="ep-divider"></div>
+
+<!-- SORU KUTUCUKLARI 2 -->
+<div class="ep-section">❓ Soru Kutucukları 2 / Question Boxes 2</div>
+
+<div class="ep-qbox">
+  <div class="ep-qnum">Soru / Question 1</div>
+  <div class="ep-qtext">Tapu kayıtlarına Vs₃₀ bilgilerinin eklenmesi hangi açılardan faydalıdır? / <em>What are the benefits of incorporating Vs₃₀ data into land registries?</em></div>
+</div>
+<div class="ep-qbox">
+  <div class="ep-qnum">Soru / Question 2</div>
+  <div class="ep-qtext">Bu entegrasyon sürecinde karşılaşılabilecek temel zorluklar nelerdir? / <em>What challenges might arise during this integration process?</em></div>
+</div>
+<div class="ep-qbox">
+  <div class="ep-qnum">Soru / Question 3</div>
+  <div class="ep-qtext">Türkiye'de bu uygulamanın yaygınlaşması için hangi kurumlar birlikte çalışmalıdır? / <em>Which institutions should collaborate to facilitate this implementation in Turkey?</em></div>
+</div>
+
+<div class="ep-divider"></div>
+
+<!-- SORU KUTUCUKLARI 3 -->
+<div class="ep-section">❓ Soru Kutucukları 3 / Question Boxes 3</div>
+
+<div class="ep-qbox">
+  <div class="ep-qnum">Soru / Question 1</div>
+  <div class="ep-qtext">Vs₃₀ ölçüm kalitesini artırmak için nasıl bir lisanslama ve denetim sistemi kurulmalıdır? / <em>What measures should be implemented to improve the quality and reliability of Vs₃₀ measurements?</em></div>
+</div>
+<div class="ep-qbox">
+  <div class="ep-qnum">Soru / Question 2</div>
+  <div class="ep-qtext">Tapu kayıtlarına zemin bilgisi eklenmesi sigorta sektörü ve afet yönetimi açısından ne gibi katkılar sağlar? / <em>How does the inclusion of soil information in land records benefit insurance and disaster management sectors?</em></div>
+</div>
+<div class="ep-qbox">
+  <div class="ep-qnum">Soru / Question 3</div>
+  <div class="ep-qtext">Bu alanda hangi paydaşlar arasında işbirliği öncelikli olmalıdır? / <em>Which stakeholders should prioritize cooperation in this area?</em></div>
+</div>
+
+<div class="ep-divider"></div>
+
+<!-- SONUÇ -->
+<div class="ep-section">✅ 4. Sonuç ve Öneriler / Conclusion</div>
+
+<div class="ep-box ep-box-red">
+  <strong>📌 Temel Öneriler / Key Recommendations:</strong>
+  <ul style="margin:10px 0 0;padding-left:1.4em;line-height:1.9;">
+    <li>Vs₃₀ ölçümlerinin <strong>standartlara uygun ekipman ve yetkin personel</strong> ile yapılması</li>
+    <li>Ölçüm yapanların <strong>lisanslama ve sertifikasyon sistemine</strong> dahil edilmesi</li>
+    <li>Ekipman ve saha uygulamalarının <strong>düzenli ve kapsamlı denetimlere</strong> tabi tutulması</li>
+    <li>Tapu ve kadastro sistemlerine Vs₃₀ verilerinin entegrasyonu için <strong>hukuki ve teknik altyapının</strong> geliştirilmesi</li>
+    <li>Kamu, özel sektör ve akademi arasında <strong>işbirliği ve farkındalık</strong> artırma çalışmaları</li>
+  </ul>
+  <div class="ep-tags" style="margin-top:14px;">
+    <span class="ep-tag">🏗️ TBDY-2018</span>
+    <span class="ep-tag">🌍 Eurocode 8</span>
+    <span class="ep-tag">📐 NEHRP</span>
+    <span class="ep-tag">📜 Tapu Entegrasyonu</span>
+    <span class="ep-tag">🔬 Jeofizik</span>
+  </div>
+</div>
+
+<!-- DIŞA AKTARMA -->
+<div class="ep-export">
+  <div class="ep-export-info">
+    <div class="ep-export-icon">📤</div>
+    <div>
+      <div class="ep-export-title">PDF / Word olarak dışa aktar</div>
+      <div class="ep-export-sub">Times New Roman · A4 · Akademik format · APA 7</div>
+    </div>
+  </div>
+  <button id="tts-btn-export" onclick="document.getElementById('tts-btn').click()" style="padding:9px 16px;border-radius:8px;font-family:'Syne',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(59,158,255,.4);background:#1a3a6e;color:#7ab8ff;white-space:nowrap;">🔊 Dinle</button>
+  <button class="ep-btn ep-btn-pdf" id="ep-pdf">📄 PDF indir</button>
+  <button class="ep-btn ep-btn-word" id="ep-word">📝 Word indir</button>
+</div>
+
+<!-- TAM RAPOR LİNKİ -->
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 20px;padding:14px 18px;background:rgba(59,158,255,0.07);border:1px solid rgba(59,158,255,0.28);border-radius:12px;font-size:.82rem;color:#7c9cbd;">
+  <span style="font-size:1.1em;">📄</span>
+  <strong style="color:#90caf9;">Tam Rapor / Full Report:</strong>
+  <a href="https://aliosmanoncel.blogspot.com/p/vs30-soilclassification.html" target="_blank" style="color:#3b9eff;font-weight:700;text-decoration:none;border-bottom:1px solid rgba(59,158,255,0.4);">aliosmanoncel.blogspot.com/p/vs30-soilclassification.html</a>
+  <span style="margin-left:auto;font-size:.72rem;opacity:.6;">SeismoReport · Vs₃₀ · Zemin Sınıflandırması</span>
+</div>
+
+<!-- CTA -->
+<div class="ep-cta">
+  <a class="ep-cta-btn" href="https://aliosmanoncel.blogspot.com/p/vs30-soilclassification.html" target="_blank">
+    📄 Tam Raporu Görüntüle →
+  </a>
+  <div class="ep-cta-sub">SeismoReport · Vs₃₀ Zemin Sınıflandırması · Haziran 2026 · aliosmanoncel.blogspot.com</div>
+</div>
+
+<div class="ep-divider"></div>
+
+<!-- YAZAR KARTI -->
+<div class="ep-author">
+  <div class="ep-avatar">🌍</div>
+  <div class="ep-author-info">
+    <div class="ep-author-name">Prof. Dr. Ali Osman Öncel</div>
+    <div class="ep-author-role">Deprem Sismolojisti · Jeofizik Mühendisi · JeoTurizm EduPanel</div>
+    <div class="ep-author-bio">İstanbul Üniversitesi–Cerrahpaşa, Jeofizik Mühendisliği Bölümü. Vs₃₀ ölçüm standartları, zemin dinamiği ve deprem mühendisliği alanlarında araştırmalar yürütmektedir. JeoTurizm EduPanel, jeofizik bilimini saha anlatılarıyla harmanlayan özgün bir eğitim platformudur.</div>
+    <a class="ep-author-link" href="https://aliosmanoncel.blogspot.com" target="_blank">🔗 aliosmanoncel.blogspot.com</a>
+  </div>
+</div>
+
+<!-- SOSYAL PAYLAŞIM -->
+<div class="ep-share">
+  <div class="ep-share-label">Bu içeriği paylaş</div>
+  <div class="ep-share-btns">
+    <a class="ep-share-btn ep-tw" id="ep-tw" href="#" target="_blank">𝕏 Twitter / X</a>
+    <a class="ep-share-btn ep-wa" id="ep-wa" href="#" target="_blank">💬 WhatsApp</a>
+    <a class="ep-share-btn ep-ml" id="ep-ml" href="#">✉️ E-posta</a>
+    <button class="ep-share-btn ep-cp" id="ep-cp">🔗 Linki Kopyala</button>
+  </div>
+</div>
+
+<!-- KAYNAKÇA -->
+<div class="ep-box ep-box-gold" style="margin-top:28px;">
+  <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;color:#c9a84c;margin-bottom:14px;">📚 Kaynakça / References (APA 7)</div>
+  <ol style="padding-left:1.4em;font-size:0.82rem;line-height:1.75;color:var(--ep-muted);margin:0;">
+    <li style="margin-bottom:6px;">ASTM International. (2020). <em>ASTM D7400–20: Standard Test Method for Downhole Seismic Testing</em>. https://doi.org/10.1520/D7400</li>
+    <li style="margin-bottom:6px;">Boore, D. M., &amp; Atkinson, G. M. (2008). Ground-motion prediction equations for the average horizontal component of PGA, PGV, and PSA. <em>Earthquake Spectra, 24</em>(1), 99–138. https://doi.org/10.1193/1.2830434</li>
+    <li style="margin-bottom:6px;">BSSC. (2020). <em>NEHRP Recommended Seismic Provisions for New Buildings and Other Structures (FEMA P-2082)</em>. U.S. FEMA.</li>
+    <li style="margin-bottom:6px;">EN 1998-1:2004. <em>Eurocode 8: Design of Structures for Earthquake Resistance – Part 1</em>. European Committee for Standardization.</li>
+    <li style="margin-bottom:6px;">ISSMGE TC203. (2021). <em>Earthquake Geotechnical Engineering</em>. http://www.issmge.org</li>
+    <li style="margin-bottom:6px;">Karakus, H., Toprak, S., &amp; Yılmaz, O. (2023). Post-earthquake geotechnical performance of urban soils in Kahramanmaraş. <em>Soil Dynamics and Earthquake Engineering, 169</em>, 107345. https://doi.org/10.1016/j.soildyn.2023.107345</li>
+    <li style="margin-bottom:6px;">Kramer, S. L. (1996). <em>Geotechnical Earthquake Engineering</em>. Prentice Hall.</li>
+    <li style="margin-bottom:0;">Türkiye Cumhuriyeti Çevre, Şehircilik ve İklim Değişikliği Bakanlığı. (2018). <em>Türkiye Bina Deprem Yönetmeliği (TBDY-2018)</em>.</li>
+  </ol>
+</div>
+
+<!-- FOOTER -->
+<div class="ep-footer" style="margin-top:32px;">
+  <p>© 2026 <strong>JeoTurizm EduPanel</strong> · Is Soil Classification Truly Measured? · Haziran 2026</p>
+  <p style="margin-top:6px;opacity:.55;">Prof. Dr. Ali Osman Öncel · İstanbul Üniversitesi–Cerrahpaşa · aliosmanoncel.blogspot.com</p>
+</div>
+
+</div><!-- /#ep-wrap -->
+
+<script>
+(function(){
+/* TEMA */
+var btn=document.getElementById('ep-theme-btn');
+var ico=document.getElementById('ep-theme-icon');
+var wrap=document.getElementById('ep-wrap');
+if(btn)btn.onclick=function(){var light=wrap.getAttribute('data-theme')==='light';wrap.setAttribute('data-theme',light?'dark':'light');ico.textContent=light?'🌙':'☀️';};
+
+/* OKUMA SÜRESİ */
+var rt=document.getElementById('ep-read-time');
+if(rt&&wrap){var w=wrap.innerText.split(/\s+/).length;rt.textContent='~'+Math.max(1,Math.round(w/200))+' dk';}
+
+/* KART FADE-IN */
+if('IntersectionObserver' in window){
+  var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});},{threshold:0.1});
+  document.querySelectorAll('#ep-wrap .ep-card').forEach(function(c){c.style.opacity='0';c.style.transform='translateY(16px)';c.style.transition='opacity .45s ease,transform .45s ease';obs.observe(c);});
+}
+
+/* SOSYAL PAYLAŞIM */
+var url=encodeURIComponent(window.location.href);
+var title=encodeURIComponent('Is Soil Classification Truly Measured? — Vs₃₀ · JeoTurizm EduPanel');
+var tw=document.getElementById('ep-tw');var wa=document.getElementById('ep-wa');var ml=document.getElementById('ep-ml');var cp=document.getElementById('ep-cp');
+if(tw)tw.href='https://twitter.com/intent/tweet?text='+title+'&url='+url;
+if(wa)wa.href='https://api.whatsapp.com/send?text='+title+'%20'+url;
+if(ml)ml.href='mailto:?subject='+title+'&body='+url;
+if(cp)cp.onclick=function(){navigator.clipboard.writeText(window.location.href).then(function(){cp.textContent='✅ Kopyalandı!';setTimeout(function(){cp.innerHTML='🔗 Linki Kopyala';},2000);});};
+
+/* EXPORT YARDIMCI */
+function epLoading(msg){var d=document.createElement('div');d.style.cssText='position:fixed;inset:0;background:rgba(10,14,21,.92);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-family:sans-serif;gap:16px;';d.innerHTML='<div style="font-size:36px;">⚙️</div><div style="font-size:16px;font-weight:700;">'+msg+'</div>';document.body.appendChild(d);return d;}
+function epHide(d){if(d&&d.parentNode)d.parentNode.removeChild(d);}
+function epOpen(html){var b=new Blob([html],{type:'text/html;charset=utf-8'});var u=URL.createObjectURL(b);var w=window.open(u,'_blank');if(w)setTimeout(function(){URL.revokeObjectURL(u);},60000);}
+function epDown(content,filename,mime){var b=new Blob([content],{type:mime});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download=filename;document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(u);},8000);}
+
+function epBody(){
+  var html='';var seen={};
+  var summ=document.querySelector('#ep-wrap .ep-summary p');
+  if(summ)html+='<h2>Özet / Abstract</h2>\n<p>'+(summ.innerText||'').trim()+'</p>\n';
+  document.querySelectorAll('#ep-wrap .ep-step').forEach(function(step,i){
+    var h=(step.querySelector('h4')||{}).innerText||'';var p=(step.querySelector('p')||{}).innerText||'';
+    if(h){html+='<h3>'+(i+1)+'. '+h.trim()+'</h3>\n';if(p)html+='<p>'+p.trim()+'</p>\n';}
+  });
+  document.querySelectorAll('#ep-wrap .ep-p').forEach(function(p){var t=(p.innerText||'').trim();if(t.length>10)html+='<p>'+t+'</p>\n';});
+  document.querySelectorAll('#ep-wrap .ep-quote').forEach(function(q){var t=(q.innerText||'').trim();if(t.length>5&&!seen[t.slice(0,40)]){seen[t.slice(0,40)]=1;html+='<blockquote>'+t+'</blockquote>\n';}});
+  document.querySelectorAll('#ep-wrap .ep-card').forEach(function(c){var h=(c.querySelector('h4')||{}).innerText||'';var p=(c.querySelector('p')||{}).innerText||'';if(h.trim().length>2){html+='<h3>'+h.trim()+'</h3>\n';if(p.trim().length>5)html+='<p>'+p.trim()+'</p>\n';}});
+  document.querySelectorAll('#ep-wrap .ep-qbox').forEach(function(q){var n=(q.querySelector('.ep-qnum')||{}).innerText||'';var t=(q.querySelector('.ep-qtext')||{}).innerText||'';if(t)html+='<p><strong>'+n.trim()+'</strong> '+t.trim()+'</p>\n';});
+  document.querySelectorAll('#ep-wrap .ep-box').forEach(function(box){var t=(box.innerText||'').trim();if(t.length>10&&!seen[t.slice(0,40)]){seen[t.slice(0,40)]=1;html+='<blockquote>'+t+'</blockquote>\n';}});
+  var tables=document.querySelectorAll('#ep-wrap .ep-table');
+  tables.forEach(function(tbl,i){html+='<h2>Tablo '+(i+1)+'</h2>\n'+tbl.outerHTML+'\n';});
+  return html;
+}
+
+/* PDF */
+var pdfBtn=document.getElementById('ep-pdf');
+if(pdfBtn)pdfBtn.addEventListener('click',function(){
+  var ld=epLoading('PDF hazırlanıyor…');
+  try{
+    var body=epBody();
+    var now=new Date().toLocaleDateString('tr-TR',{year:'numeric',month:'long',day:'numeric'});
+    var html='<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8"><title>Is Soil Classification Truly Measured? — JeoTurizm EduPanel</title>'
+    +'<style>@page{size:A4;margin:20mm 18mm 24mm 18mm;}*{box-sizing:border-box;}'
+    +'body{font-family:"Times New Roman",serif;font-size:10.5pt;line-height:1.75;color:#000;background:#fff;margin:0;}'
+    +'@media screen{body{background:#b0b8c8;padding:48px 0 60px;}.doc{width:210mm;margin:0 auto;background:#fff;box-shadow:0 8px 40px rgba(0,0,0,.28);padding:20mm 18mm 24mm;}}'
+    +'@media print{.pbar{display:none!important;}.doc{padding:0;box-shadow:none;}}'
+    +'.pbar{position:fixed;top:0;left:0;right:0;z-index:9999;background:#0f172a;color:#f1f5f9;padding:9px 20px;display:flex;align-items:center;font-family:Arial,sans-serif;font-size:12px;}'
+    +'.pbtn{margin-left:auto;background:#9b1c33;color:#fff;border:none;border-radius:6px;padding:8px 20px;font-size:12px;font-weight:bold;cursor:pointer;}'
+    +'.mast{border-top:3px solid #c41535;border-bottom:1px solid #c41535;padding:8pt 0 6pt;margin-bottom:14pt;display:flex;justify-content:space-between;}'
+    +'.jname{font-family:Arial,sans-serif;font-size:13pt;font-weight:900;color:#c41535;}'
+    +'.jmeta{font-size:8pt;color:#444;text-align:right;font-family:Arial,sans-serif;line-height:1.5;}'
+    +'.atitle{font-family:Arial,sans-serif;font-size:15pt;font-weight:700;margin:0 0 8pt;line-height:1.3;}'
+    +'.abox{border:1.5px solid #c41535;padding:9pt 11pt;margin:0 0 12pt;background:#fff5f7;}'
+    +'.albl{font-family:Arial,sans-serif;font-size:8.5pt;font-weight:700;color:#c41535;text-transform:uppercase;margin:0 0 4pt;}'
+    +'.atext{font-size:9.5pt;line-height:1.7;text-align:justify;margin:0;}'
+    +'.twocol{column-count:2;column-gap:14pt;column-rule:1px solid #dde;}'
+    +'h2{font-family:Arial,sans-serif;font-size:10.5pt;font-weight:700;color:#c41535;margin:14pt 0 5pt;border-bottom:1px solid #c41535;break-after:avoid;}'
+    +'h3{font-family:Arial,sans-serif;font-size:9.5pt;font-weight:700;font-style:italic;margin:10pt 0 4pt;break-after:avoid;}'
+    +'p{text-align:justify;font-size:9.5pt;margin:0 0 5pt;line-height:1.7;}'
+    +'blockquote{border-left:2.5px solid #c41535;padding:4pt 8pt;margin:7pt 0 7pt 10pt;font-size:9pt;font-style:italic;color:#333;text-align:justify;}'
+    +'ol,ul{padding-left:16pt;font-size:9pt;text-align:justify;}li{margin-bottom:3pt;text-align:justify;}'
+    +'table{width:100%;border-collapse:collapse;font-size:7.5pt;margin:10pt 0;column-span:all;}'
+    +'th{border-top:1.5px solid #c41535;border-bottom:1px solid #c41535;padding:3pt 4pt;font-family:Arial,sans-serif;font-weight:700;background:#fff5f7;}'
+    +'td{padding:2.5pt 4pt;border-bottom:1px solid #dde;}'
+    +'.col{column-span:all;margin-top:18pt;padding-top:8pt;border-top:1px solid #bbb;font-size:7.5pt;color:#777;font-family:Arial,sans-serif;text-align:center;}'
+    +'</style></head><body>'
+    +'<div class="pbar"><strong>📄 Is Soil Classification Truly Measured? — JeoTurizm EduPanel</strong>'
+    +'<button class="pbtn" onclick="window.print()">🖨️ Yazdır / PDF Kaydet</button></div>'
+    +'<div class="doc"><div class="mast">'
+    +'<div><div class="jname">JeoTurizm EduPanel · Review Article</div>'
+    +'<div style="font-size:8pt;color:#444;font-family:Arial,sans-serif;margin-top:2pt;">aliosmanoncel.blogspot.com</div></div>'
+    +'<div class="jmeta">Review Article · Haziran 2026<br>Tarih: '+now+'</div></div>'
+    +'<div style="font-family:Arial,sans-serif;font-size:8.5pt;font-weight:700;color:#c41535;letter-spacing:1pt;text-transform:uppercase;margin:0 0 6pt;">Deprem Mühendisliği · Zemin Dinamiği · TBDY-2018 · Eurocode 8</div>'
+    +'<div class="atitle">Is Soil Classification Truly Measured? Deprem Mühendisliğinde Vs₃₀ Ölçüm Standartları, Yetkinlik ve Tapu Entegrasyonu</div>'
+    +'<p style="font-size:9.5pt;font-family:Arial,sans-serif;margin:0 0 4pt;"><strong>Prof. Dr. Ali Osman Öncel</strong> — Deprem Sismolojisti · Jeofizik Mühendisi</p>'
+    +'<p style="font-size:8.5pt;font-style:italic;font-family:Arial,sans-serif;color:#555;margin:0 0 8pt;">İstanbul Üniversitesi–Cerrahpaşa, Jeofizik Mühendisliği Bölümü · Haziran 2026</p>'
+    +'<div class="abox"><div class="albl">Özet / Abstract</div>'
+    +'<p class="atext">Deprem mühendisliğinde zemin koşullarının doğru tanımlanması hayati öneme sahiptir. Vs₃₀ parametresi, zemin sınıflandırması ve sismik tasarım için temel veri olarak kullanılır. Bu çalışma; ölçüm kalitesi için yetkinlik ve denetim süreçlerinin önemini ve Vs₃₀ verilerinin tapu kayıtlarına entegrasyonunun faydalarını ele almaktadır. / In earthquake engineering, the accurate characterization of soil conditions is critical for seismic design. This paper addresses quality assurance in Vs₃₀ measurements and the benefits of integrating soil data into land registry systems.</p></div>'
+    +'<div class="twocol">'+body+'</div>'
+    +'<div class="col">&copy; 2026 JeoTurizm EduPanel &middot; Prof. Dr. Ali Osman &Ouml;ncel &middot; aliosmanoncel.blogspot.com &middot; '+now+'</div>'
+    +'</div></body></html>';
+    epHide(ld);epOpen(html);
+  }catch(e){epHide(ld);alert('PDF hatası: '+e.message);}
+});
+
+/* WORD */
+var wordBtn=document.getElementById('ep-word');
+if(wordBtn)wordBtn.addEventListener('click',function(){
+  var ld=epLoading('Word hazırlanıyor…');
+  try{
+    var body=epBody();
+    var now=new Date().toLocaleDateString('tr-TR',{year:'numeric',month:'long',day:'numeric'});
+    var html='<!DOCTYPE html>'
+    +'<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40" lang="tr">'
+    +'<head><meta charset="utf-8"><meta name=ProgId content=Word.Document>'
+    +'<title>Is Soil Classification Truly Measured? — JeoTurizm EduPanel</title>'
+    +'<style>@page Section1{size:210mm 297mm;margin:25.4mm 19mm 25.4mm 19mm;}div.Section1{page:Section1;}'
+    +'body{font-family:"Times New Roman",serif;font-size:10.5pt;color:#000;line-height:1.75;}'
+    +'h1{font-family:Arial,sans-serif;font-size:15pt;font-weight:bold;margin:0 0 8pt;}'
+    +'h2{font-family:Arial,sans-serif;font-size:10.5pt;font-weight:bold;color:#c41535;margin:14pt 0 5pt;border-bottom:1pt solid #c41535;page-break-after:avoid;}'
+    +'h3{font-family:Arial,sans-serif;font-size:9.5pt;font-weight:bold;font-style:italic;margin:10pt 0 4pt;page-break-after:avoid;}'
+    +'p{text-align:justify;font-size:9.5pt;margin:0 0 5pt;line-height:16pt;}'
+    +'blockquote{border-left:2.5pt solid #c41535;padding-left:8pt;margin:7pt 0 7pt 10pt;font-style:italic;font-size:9pt;text-align:justify;}'
+    +'ol,ul{padding-left:16pt;font-size:9pt;text-align:justify;}li{margin-bottom:3pt;}'
+    +'table{width:100%;border-collapse:collapse;font-size:7.5pt;margin:10pt 0;}'
+    +'th{border-top:1.5pt solid #c41535;border-bottom:1pt solid #c41535;padding:3pt 4pt;font-family:Arial,sans-serif;font-weight:bold;background:#fff5f7;}'
+    +'td{padding:2.5pt 4pt;border-bottom:1pt solid #dde;}'
+    +'</style></head><body><div class="Section1">'
+    +'<h1>Is Soil Classification Truly Measured?</h1>'
+    +'<p><strong>Prof. Dr. Ali Osman Öncel</strong> — Deprem Sismolojisti · Jeofizik Mühendisi</p>'
+    +'<p><em>JeoTurizm EduPanel · Review Article · Haziran 2026</em></p>'
+    +'<p>Tarih: '+now+' · aliosmanoncel.blogspot.com</p>'
+    +body
+    +'<p style="font-family:Arial,sans-serif;font-size:7.5pt;color:#777;border-top:1pt solid #ccc;margin-top:18pt;padding-top:6pt;">&copy; 2026 JeoTurizm EduPanel &middot; Prof. Dr. Ali Osman &Ouml;ncel &middot; aliosmanoncel.blogspot.com &middot; '+now+'</p>'
+    +'</div></body></html>';
+    epHide(ld);
+    epDown(html,'JeoTurizm-EduPanel-Vs30-SoilClassification.doc','application/msword');
+  }catch(e){epHide(ld);alert('Word hatası: '+e.message);}
+});
+
+})();
+</script>
+
+<!-- Google Translate -->
+<script type="text/javascript">
+(function(){
+  function setCookie(n,v,d){var e=new Date();e.setTime(e.getTime()+(d*864e5));document.cookie=n+'='+v+';expires='+e.toUTCString()+';path=/';}
+  if(document.cookie.indexOf('googtrans')===-1){setCookie('googtrans','/tr/en',1);}
+})();
+function googleTranslateElementInit(){
+  new google.translate.TranslateElement({
+    pageLanguage:'tr',
+    includedLanguages:'en,tr,it,de,fr,es,ar,ru,pt,nl,pl',
+    layout:google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay:false
+  },'google_translate_element');
+}
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- TTS -->
+<script>
+(function(){
+  var synth=window.speechSynthesis,btn=document.getElementById('tts-btn');
+  if(!synth||!btn)return;
+  var speaking=false,paused=false;
+  function getLang(){var m=document.cookie.match(/googtrans=\/[^/]+\/([^;]+)/);return m?m[1]:(document.documentElement.lang||'tr');}
+  function getContent(){
+    var root=document.getElementById('ep-wrap')||document.body;
+    var clone=root.cloneNode(true);
+    clone.querySelectorAll('script,style,noscript,button,input,select,iframe,svg,#google_translate_element,.ep-share,.ep-footer,.ep-author-link').forEach(function(el){el.remove();});
+    return(clone.innerText||'').replace(/\s{2,}/g,' ').trim().slice(0,50000);
+  }
+  function setState(s){
+    if(s==='playing'){btn.textContent='⏸ Duraklat';btn.style.background='linear-gradient(135deg,#92400e,#b45309)';}
+    else if(s==='paused'){btn.textContent='▶ Devam';btn.style.background='linear-gradient(135deg,#14532d,#166534)';}
+    else{btn.textContent='🔊 Dinle';btn.style.background='linear-gradient(135deg,#1e3a5f,#1e40af)';}
+  }
+  btn.addEventListener('click',function(){
+    if(!speaking&&!paused){synth.cancel();var utt=new SpeechSynthesisUtterance(getContent());utt.lang=getLang();utt.rate=0.92;utt.pitch=1;utt.onend=utt.onerror=function(){speaking=false;paused=false;setState('idle');};synth.speak(utt);speaking=true;setState('playing');}
+    else if(speaking){synth.pause();speaking=false;paused=true;setState('paused');}
+    else if(paused){synth.resume();paused=false;speaking=true;setState('playing');}
+  });
+  window.addEventListener('beforeunload',function(){synth.cancel();});
+})();
+</script>

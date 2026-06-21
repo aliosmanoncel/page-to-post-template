@@ -1,0 +1,543 @@
+<!--
+  JeoTurizm EduPanel — page-to-post-template v4.0
+  Konu : Sismoloji Mühendisliği: Türkiye'de Neden Bağımsız Bir Disiplin Olmalı?
+  Yazar: Prof. Dr. Ali Osman Öncel
+  Tarih: Haziran 2026
+-->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Sismoloji Mühendisliği — Prof. Dr. Ali Osman Öncel</title>
+<style>
+/* ── RESET ── */
+*{box-sizing:border-box;margin:0;padding:0;}
+
+/* ── EP NAMESPACE ── */
+#ep-wrap{
+  --ep-bg:#0f172a;--ep-surface:#1e293b;--ep-border:rgba(255,255,255,0.10);
+  --ep-text:#e2e8f0;--ep-muted:#94a3b8;
+  --ep-accent:#7c3aed;--ep-accent2:#f59e0b;--ep-accent3:#a78bfa;
+  font-family:'Segoe UI',system-ui,sans-serif;
+  background:var(--ep-bg);color:var(--ep-text);
+  line-height:1.75;min-height:100vh;
+  transition:background .3s,color .3s;
+}
+#ep-wrap.light{
+  --ep-bg:#f8fafc;--ep-surface:#fff;--ep-border:rgba(0,0,0,0.10);
+  --ep-text:#1e293b;--ep-muted:#64748b;
+}
+
+/* ── HEADER ── */
+#ep-wrap .ep-header{
+  background:linear-gradient(135deg,#4c1d95 0%,#7c3aed 60%,#6d28d9 100%);
+  padding:44px 20px 36px;text-align:center;
+  position:relative;overflow:hidden;
+}
+#ep-wrap .ep-header::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+#ep-wrap .ep-header-badge{
+  display:inline-block;background:rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.25);border-radius:20px;
+  padding:4px 14px;font-size:0.75em;font-weight:600;
+  letter-spacing:0.08em;color:#e9d5ff;margin-bottom:14px;position:relative;
+}
+#ep-wrap .ep-header h1{
+  font-size:clamp(1.4em,4vw,2em);font-weight:800;color:#fff;
+  line-height:1.25;margin-bottom:10px;position:relative;
+}
+#ep-wrap .ep-header-sub{
+  color:#ddd6fe;font-size:0.88em;position:relative;
+}
+#ep-wrap .ep-header-meta{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:16px;
+  margin-top:18px;font-size:0.78em;color:#c4b5fd;position:relative;
+}
+#ep-wrap .ep-header-meta span::before{margin-right:4px;}
+
+/* ── TOOLBAR ── */
+#ep-wrap .ep-toolbar{
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+  padding:10px 16px;background:var(--ep-surface);
+  border-bottom:1px solid var(--ep-border);
+  font-size:0.82em;
+}
+#ep-wrap .ep-toolbar button{
+  background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.3);
+  color:var(--ep-accent3);border-radius:6px;padding:5px 11px;
+  cursor:pointer;font-size:0.9em;transition:background .2s;
+}
+#ep-wrap .ep-toolbar button:hover{background:rgba(124,58,237,0.22);}
+#ep-wrap .ep-read-time{margin-left:auto;color:var(--ep-muted);font-size:0.85em;}
+
+/* ── HERO ── */
+#ep-wrap .ep-hero{
+  background:var(--ep-surface);border:1px solid var(--ep-border);
+  border-radius:14px;padding:28px 22px;margin:20px 16px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;
+}
+#ep-wrap .ep-hero-card{
+  text-align:center;padding:18px 14px;border-radius:10px;
+  border:1px solid var(--ep-border);background:rgba(124,58,237,0.06);
+}
+#ep-wrap .ep-hero-card .icon{font-size:1.9em;margin-bottom:8px;}
+#ep-wrap .ep-hero-card .label{font-weight:700;font-size:0.85em;color:var(--ep-accent3);}
+#ep-wrap .ep-hero-card .desc{font-size:0.72em;color:var(--ep-muted);margin-top:5px;line-height:1.5;}
+
+/* ── CONTENT WRAPPER ── */
+#ep-wrap .ep-content{max-width:860px;margin:0 auto;padding:0 16px 40px;}
+
+/* ── SECTION HEADINGS ── */
+#ep-wrap .ep-section-title{
+  font-size:1.05em;font-weight:700;color:var(--ep-accent3);
+  border-left:4px solid var(--ep-accent);padding-left:12px;
+  margin:28px 0 12px;
+}
+
+/* ── PARAGRAPH ── */
+#ep-wrap .ep-p{
+  text-align:justify;hyphens:auto;color:var(--ep-text);
+  font-size:0.95em;line-height:1.85;margin-bottom:12px;
+}
+
+/* ── STATS TABLE ── */
+#ep-wrap .ep-stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:10px;margin:18px 0;
+}
+#ep-wrap .ep-stat-card{
+  background:rgba(124,58,237,0.10);border:1px solid rgba(124,58,237,0.25);
+  border-radius:10px;padding:14px;text-align:center;
+}
+#ep-wrap .ep-stat-num{font-size:1.6em;font-weight:800;color:var(--ep-accent3);}
+#ep-wrap .ep-stat-lbl{font-size:0.72em;color:var(--ep-muted);margin-top:3px;}
+
+/* ── COMPARISON TABLE ── */
+#ep-wrap .ep-table-wrap{overflow-x:auto;margin:16px 0;}
+#ep-wrap .ep-table{width:100%;border-collapse:collapse;font-size:0.86em;table-layout:fixed;}
+#ep-wrap .ep-table th{
+  background:rgba(124,58,237,0.18);color:#e2e8f0;
+  padding:9px 12px;text-align:left;border-bottom:2px solid rgba(124,58,237,0.4);
+  word-break:keep-all;
+}
+#ep-wrap .ep-table td{
+  padding:9px 12px;border-bottom:1px solid var(--ep-border);
+  vertical-align:middle;line-height:1.65;color:var(--ep-text);
+  text-align:justify;hyphens:auto;word-break:break-word;
+}
+#ep-wrap .ep-table td:first-child{
+  vertical-align:middle;text-align:center;white-space:nowrap;
+  font-weight:700;width:140px;hyphens:none;word-break:keep-all;
+}
+#ep-wrap .ep-table tr:nth-child(odd) td{background:rgba(124,58,237,0.04);}
+
+/* ── CARDS (3-col) ── */
+#ep-wrap .ep-cards{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:14px;margin:18px 0;
+}
+#ep-wrap .ep-card{
+  background:var(--ep-surface);border:1px solid var(--ep-border);
+  border-radius:12px;padding:18px;
+  border-top:3px solid var(--ep-accent);
+  opacity:0;transform:translateY(18px);
+  transition:opacity .5s,transform .5s;
+}
+#ep-wrap .ep-card.visible{opacity:1;transform:translateY(0);}
+#ep-wrap .ep-card h4{font-size:0.9em;color:var(--ep-accent3);margin-bottom:6px;}
+#ep-wrap .ep-card p{font-size:0.82em;color:var(--ep-muted);text-align:justify;hyphens:auto;}
+
+/* ── INFO BOX ── */
+#ep-wrap .ep-box-info{
+  background:rgba(124,58,237,0.07);border:1px solid rgba(124,58,237,0.28);
+  border-radius:10px;padding:16px 18px;margin:16px 0;
+  font-size:0.9em;line-height:1.78;text-align:justify;hyphens:auto;
+}
+#ep-wrap .ep-box-info strong{color:#e0ecff;}
+
+/* ── QUESTION BOXES ── */
+#ep-wrap .ep-box-q{
+  background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.25);
+  border-radius:10px;padding:14px 16px;margin:8px 0;
+}
+#ep-wrap .ep-box-q .qnum{font-weight:700;color:var(--ep-accent2);font-size:0.82em;margin-bottom:4px;}
+#ep-wrap .ep-box-q .qtext{font-size:0.9em;color:var(--ep-text);line-height:1.7;text-align:justify;hyphens:auto;}
+
+/* ── CONCLUSION CARD ── */
+#ep-wrap .ep-conclusion{
+  background:rgba(22,163,74,0.08);border-left:4px solid #22c55e;
+  border-radius:0 10px 10px 0;padding:16px 18px;margin:16px 0;
+}
+#ep-wrap .ep-conclusion h4{color:#22c55e;margin-bottom:8px;font-size:0.95em;}
+#ep-wrap .ep-conclusion ul{padding-left:1.3em;font-size:0.88em;color:var(--ep-text);line-height:1.9;}
+
+/* ── QUOTE ── */
+#ep-wrap .ep-quote{
+  border-left:4px solid var(--ep-accent2);
+  padding:12px 16px;margin:16px 0;
+  background:rgba(245,158,11,0.05);border-radius:0 8px 8px 0;
+  font-style:italic;color:var(--ep-muted);font-size:0.9em;line-height:1.7;
+}
+
+/* ── TAM RAPOR LINK BAR ── */
+#ep-wrap .ep-report-bar{
+  background:rgba(124,58,237,0.07);border:1px solid rgba(124,58,237,0.28);
+  border-radius:10px;padding:14px 18px;margin:20px 0;
+  font-size:0.9em;line-height:1.7;
+}
+#ep-wrap .ep-report-bar a{color:#a78bfa;word-break:break-all;}
+
+/* ── EXPORT ── */
+#ep-wrap .ep-export{
+  background:var(--ep-surface);border:1px solid var(--ep-border);
+  border-radius:14px;padding:22px;margin:24px 0;
+  display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+}
+#ep-wrap .ep-export-info{flex:1;min-width:180px;}
+#ep-wrap .ep-export-info h4{font-size:0.95em;color:var(--ep-accent3);margin-bottom:4px;}
+#ep-wrap .ep-export-info p{font-size:0.78em;color:var(--ep-muted);}
+#ep-wrap .ep-export button{
+  padding:11px 20px;border:none;border-radius:9px;font-weight:700;
+  font-size:0.88em;cursor:pointer;transition:opacity .2s;
+}
+#ep-wrap .ep-export button:hover{opacity:.85;}
+#ep-wrap .ep-btn-pdf{background:linear-gradient(135deg,#4c1d95,#6d28d9);color:#fff;}
+#ep-wrap .ep-btn-word{background:linear-gradient(135deg,#166534,#15803d);color:#fff;}
+
+/* ── CTA ── */
+#ep-wrap .ep-cta{text-align:center;margin:28px 0;}
+#ep-wrap .ep-cta-btn{
+  display:inline-block;background:linear-gradient(135deg,#4c1d95,#7c3aed);
+  color:#fff;text-decoration:none;padding:14px 32px;border-radius:12px;
+  font-weight:700;font-size:0.95em;transition:opacity .2s;
+}
+#ep-wrap .ep-cta-btn:hover{opacity:.85;}
+
+/* ── AUTHOR ── */
+#ep-wrap .ep-author{
+  display:flex;align-items:center;gap:14px;
+  background:var(--ep-surface);border:1px solid var(--ep-border);
+  border-radius:12px;padding:16px 18px;margin:20px 0;
+}
+#ep-wrap .ep-author img{width:56px;height:56px;border-radius:50%;object-fit:cover;flex-shrink:0;}
+#ep-wrap .ep-author-info h4{font-size:0.95em;color:var(--ep-text);margin-bottom:3px;}
+#ep-wrap .ep-author-info p{font-size:0.78em;color:var(--ep-muted);}
+
+/* ── SHARE ── */
+#ep-wrap .ep-share{text-align:center;margin:18px 0;}
+#ep-wrap .ep-share-btn{
+  display:inline-block;margin:4px;padding:8px 16px;border-radius:8px;
+  font-size:0.8em;font-weight:600;text-decoration:none;color:#fff;
+}
+#ep-wrap .ep-share-tw{background:#1da1f2;}
+#ep-wrap .ep-share-wa{background:#25d366;}
+#ep-wrap .ep-share-li{background:#0077b5;}
+
+/* ── REFERENCES ── */
+#ep-wrap .ep-ref{
+  font-size:0.82em;color:var(--ep-muted);line-height:1.65;
+  padding-left:2.2em;text-indent:-2.2em;margin-bottom:7px;
+}
+#ep-wrap .ep-ref a{color:#7dd3fc;}
+
+/* ── FOOTER ── */
+#ep-wrap .ep-footer{
+  text-align:center;font-size:0.78em;color:var(--ep-muted);
+  border-top:1px solid var(--ep-border);padding:18px 16px;margin-top:30px;
+}
+
+/* ── PRINT ── */
+@media print{
+  #ep-wrap{background:#fff !important;color:#000 !important;}
+  #ep-wrap .ep-toolbar,#ep-wrap .ep-export,#ep-wrap .ep-share,#ep-wrap .ep-cta{display:none !important;}
+  #ep-wrap .ep-card{opacity:1 !important;transform:none !important;}
+  @page{size:A4;margin:2cm 2.2cm;}
+}
+@media(max-width:600px){
+  #ep-wrap .ep-header h1{font-size:1.35em;}
+}
+</style>
+</head>
+<body>
+<div id="ep-wrap">
+
+  <!-- ══ HEADER ══ -->
+  <div class="ep-header">
+    <div class="ep-header-badge">📚 Akademik Makale · Jeofizik Mühendisliği</div>
+    <h1>Sismoloji Mühendisliği:<br>Türkiye'de Neden Bağımsız<br>Bir Disiplin Olmalı?</h1>
+    <div class="ep-header-sub">Prof. Dr. Ali Osman Öncel · İstanbul Üniversitesi–Cerrahpaşa</div>
+    <div class="ep-header-meta">
+      <span>🗓️ Haziran 2026</span>
+      <span>⏱️ <span id="ep-readtime">—</span> dk okuma</span>
+      <span>🎓 Sismoloji · Deprem Müh. · TBDY-2018</span>
+      <span>🌍 NEHRP · Eurocode 8</span>
+    </div>
+  </div>
+
+  <!-- ══ TOOLBAR ══ -->
+  <div class="ep-toolbar">
+    <button onclick="epToggleTheme()">🌓 Tema</button>
+    <button onclick="epSpeak()">🔊 Sesli Oku</button>
+    <button onclick="epStopSpeak()">⏹ Durdur</button>
+    <span class="ep-read-time">📖 Tahmini okuma: <span id="ep-readtime2">—</span> dk</span>
+  </div>
+
+  <!-- ══ HERO — 3 Disiplin Kartı ══ -->
+  <div class="ep-hero">
+    <div class="ep-hero-card">
+      <div class="icon">🌊</div>
+      <div class="label">Sismoloji</div>
+      <div class="desc">Dalga yayılımı · Kaynak mekanizması · Zemin davranışı · Fay modelleri</div>
+    </div>
+    <div class="ep-hero-card">
+      <div class="icon">🏗️</div>
+      <div class="label">Deprem Mühendisliği</div>
+      <div class="desc">Yapı tasarımı · Rijitlik · Süneklik · Performans analizi · Yönetmelikler</div>
+    </div>
+    <div class="ep-hero-card" style="background:rgba(245,158,11,0.08);border-color:rgba(245,158,11,0.3);">
+      <div class="icon">🔗</div>
+      <div class="label" style="color:#f5a623;">Sismoloji Mühendisliği</div>
+      <div class="desc">PSHA · Mikrobölgeleme · Zemin sınıfı · Senaryo üretimi · Afet riski</div>
+    </div>
+  </div>
+
+  <!-- ══ CONTENT ══ -->
+  <div class="ep-content" id="ep-body">
+
+    <!-- TAM RAPOR LİNKİ -->
+    <div class="ep-report-bar">
+      📄 <strong>Tam Rapor / Full Report:</strong><br>
+      <a href="https://aliosmanoncel.blogspot.com/p/seismologyengineering-global.html" target="_blank">
+        aliosmanoncel.blogspot.com/p/seismologyengineering-global.html
+      </a>
+    </div>
+
+    <!-- İSTATİSTİKLER -->
+    <div class="ep-stats">
+      <div class="ep-stat-card"><div class="ep-stat-num">3</div><div class="ep-stat-lbl">Disiplin</div></div>
+      <div class="ep-stat-card"><div class="ep-stat-num">3</div><div class="ep-stat-lbl">Uluslararası Standart</div></div>
+      <div class="ep-stat-card"><div class="ep-stat-num">5</div><div class="ep-stat-lbl">Öneri</div></div>
+      <div class="ep-stat-card"><div class="ep-stat-num">30+</div><div class="ep-stat-lbl">Yıllık Araştırma</div></div>
+    </div>
+
+    <!-- GİRİŞ -->
+    <div class="ep-section-title">1. Giriş</div>
+    <p class="ep-p">Türkiye gibi aktif fay hatları üzerinde yer alan ülkelerde <strong>deprem riski</strong>, yalnızca bilimsel değil, aynı zamanda <strong>mühendislik ve toplumsal bir sorun</strong> olarak ele alınmalıdır. Bugün Türkiye'de <strong>sismoloji</strong>, genellikle <strong>jeofizik mühendisliği</strong> bölümleri altında teorik ve gözlemsel çalışmalarla yürütülürken, <strong>deprem mühendisliği</strong>, daha çok <strong>inşaat mühendisliği</strong> çatısı altında yapıların dayanımına odaklanan bir uygulama alanı olarak konumlanmaktadır.</p>
+    <p class="ep-p">Bu iki alan arasında köprü kurabilecek ve deprem verilerini doğrudan mühendislik pratiğine entegre edebilecek <strong>Sismoloji Mühendisliği</strong> gibi bir disipline ihtiyaç giderek artmaktadır.</p>
+
+    <div class="ep-quote">"Depremlere karşı dirençli toplumlar, yalnızca binalar inşa etmekle değil; zemin davranışını, sismik tehlikeyi ve yapısal yanıtı bir arada değerlendiren entegre bir bilimle kurulabilir." — Prof. Dr. Ali Osman Öncel</div>
+
+    <!-- TEMEL KAVRAMLAR -->
+    <div class="ep-section-title">2. Temel Kavramlar</div>
+    <div class="ep-table-wrap">
+      <table class="ep-table">
+        <colgroup>
+          <col style="width:140px">
+          <col>
+          <col>
+        </colgroup>
+        <thead>
+          <tr><th style="text-align:center;">Disiplin</th><th>Tanım</th><th>Temel Kapsam</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div style="font-size:1.5em;margin-bottom:4px;">🌊</div><strong style="color:#a78bfa;">Sismoloji</strong></td>
+            <td>Depremlerin oluşum süreçlerini, fay mekanizmalarını ve sismik dalgaların yayılımını inceleyen yer bilimi dalı.</td>
+            <td>Elastik dalga yayılımı, kaynak mekanizması, zemin davranışı, yer hareketi parametreleri.</td>
+          </tr>
+          <tr>
+            <td><div style="font-size:1.5em;margin-bottom:4px;">🏗️</div><strong style="color:#3b9eff;">Deprem Mühendisliği</strong></td>
+            <td>Yapıların depreme karşı güvenliğini sağlamak için sismik etkilerin analiz edilip yapı sistemlerine uygulanmasıyla ilgilenen mühendislik alanı.</td>
+            <td>Taşıyıcı sistem tasarımı, rijitlik, süneklik, performans analizi, yapı yönetmelikleri.</td>
+          </tr>
+          <tr>
+            <td><div style="font-size:1.5em;margin-bottom:4px;">🔗</div><strong style="color:#f5a623;">Sismoloji Mühendisliği</strong></td>
+            <td>Sismolojik verilerin, yer hareketi modellerinin ve zemin parametrelerinin mühendislik tasarım süreçlerine entegre edilmesini sağlayan disiplinlerarası alan.</td>
+            <td>PSHA, sismik mikrobölgeleme, zemin sınıflaması, deprem senaryosu üretimi, afet risk yönetimi.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SORU 1 -->
+    <div class="ep-section-title">📝 Düşünelim — Temel Kavramlar</div>
+    <div class="ep-box-q"><div class="qnum">Soru 1</div><div class="qtext">Sismoloji Mühendisliği hangi iki disiplinin kesişiminden doğmuştur?</div></div>
+    <div class="ep-box-q"><div class="qnum">Soru 2</div><div class="qtext">Deprem mühendisliği ile sismoloji mühendisliği arasındaki temel uygulama farkı nedir?</div></div>
+    <div class="ep-box-q"><div class="qnum">Soru 3</div><div class="qtext">Zemin sınıfı bilgisi hangi alan için daha kritik: deprem mühendisliği mi, sismoloji mühendisliği mi? Neden?</div></div>
+
+    <!-- UYGULAMA ALANLARI -->
+    <div class="ep-section-title">3. Uygulama Alanları ve Kurumsal Ayrışma</div>
+    <p class="ep-p">ABD'de <strong>Caltech</strong>, <strong>Stanford</strong>, <strong>MIT</strong> gibi üniversiteler, sismoloji ve deprem mühendisliği programlarını ayrı lisansüstü birimler olarak yürütmektedir. Bu yapılanma, hem bilimsel hem de mühendislik becerilerinin derinleştirilmesini sağlar. Türkiye'de ise geniş kapsamlı müfredatlar nedeniyle öğrenciler, temel konuları derinlemesine öğrenemeden mezun olabilmektedir.</p>
+    <p class="ep-p">Şehir planlamasında kullanılan <strong>mikrobölgeleme çalışmaları</strong>, zemin büyütmeleri ve senaryo bazlı yer hareketi analizleri, sadece teorik değil <strong>mühendislik odaklı sismoloji</strong> bilgisiyle yürütülebilir. Bu çalışmalar, TBDY-2018 kapsamında bağlayıcı nitelik taşımaktadır.</p>
+
+    <!-- 3 KART -->
+    <div class="ep-cards">
+      <div class="ep-card">
+        <h4>🏙️ Kentsel Dönüşüm</h4>
+        <p>Mikrobölgeleme ve zemin sınıflaması, afete duyarlı kentsel planlama için temel girdi sağlar.</p>
+      </div>
+      <div class="ep-card">
+        <h4>📐 Yönetmelik Entegrasyonu</h4>
+        <p>TBDY-2018 tehlike haritaları, sahaya uygulanabilmesi için sismoloji mühendisliği çıktılarını gerektirir.</p>
+      </div>
+      <div class="ep-card">
+        <h4>🌐 Uluslararası Uyum</h4>
+        <p>NEHRP ve Eurocode 8 gibi standartlarla uyumlu analizler ancak disiplinlerarası eğitimle mümkündür.</p>
+      </div>
+    </div>
+
+    <!-- STANDARTLAR INFO BOX -->
+    <div class="ep-box-info">
+      <strong>📦 Öne Çıkan Deprem Tasarım Standartları</strong><br><br>
+      <strong>🇺🇸 NEHRP (ABD):</strong> Olasılıksal deprem tehlikesi modellemeleri ve yapı spektrumları üzerine odaklanır.<br>
+      <strong>🇪🇺 Eurocode 8 (Avrupa):</strong> Zemin sınıfları, spektral ivme eğrileri ve süneklik temelli tasarımı içerir.<br>
+      <strong>🇹🇷 TBEC-2018 / TBDY-2018 (Türkiye):</strong> Senaryo temelli analizleri, zemin sınıflarını ve doğrusal olmayan davranışı içeren kapsamlı deprem tasarım yönetmeliğidir.
+    </div>
+
+    <!-- SORU 2 -->
+    <div class="ep-section-title">📝 Düşünelim — Uygulama Alanları</div>
+    <div class="ep-box-q"><div class="qnum">Soru 1</div><div class="qtext">Sismoloji Mühendisliği, şehir planlamasına hangi araçlarla katkı sağlar?</div></div>
+    <div class="ep-box-q"><div class="qnum">Soru 2</div><div class="qtext">NEHRP ve TBEC-2018 yönetmelikleri hangi kritik farklılıklara sahiptir?</div></div>
+    <div class="ep-box-q"><div class="qnum">Soru 3</div><div class="qtext">Mikrobölgeleme çalışmaları için neden disiplinlerarası yaklaşım gerekir?</div></div>
+
+    <!-- SONUÇ -->
+    <div class="ep-section-title">4. Sonuç ve Öneriler</div>
+    <p class="ep-p">Türkiye'nin deprem tehlikesi ve maruz kalma düzeyi göz önüne alındığında, <strong>Sismoloji Mühendisliği</strong> disiplininin ayrı bir akademik program olarak yapılandırılması <strong>kaçınılmazdır</strong>. Bu program, jeofizik ve yapı mühendisliğini birbirine bağlayan, veri temelli analiz yapan ve mühendislik karar süreçlerini besleyen bir eğitim modeline sahip olmalıdır.</p>
+
+    <div class="ep-conclusion">
+      <h4>✅ Temel Öneriler</h4>
+      <ul>
+        <li><strong>Sismoloji Mühendisliği</strong> lisansüstü programının bağımsız bir disiplin olarak açılması</li>
+        <li>Jeofizik ve inşaat mühendisliği müfredatlarını <strong>köprüleyen</strong> eğitim modeli</li>
+        <li>PSHA, mikrobölgeleme ve zemin sınıflamasının <strong>zorunlu ders</strong> olarak müfredata alınması</li>
+        <li>AFAD, MTA ve UDAP ile <strong>ortak araştırma ve uygulama protokolleri</strong></li>
+        <li>Vs₃₀ ölçüm standartları ve <strong>tapu entegrasyonu</strong> ile doğrudan bağ kurulması</li>
+      </ul>
+    </div>
+
+    <!-- İLGİLİ İÇERİK -->
+    <div class="ep-box-info" style="border-color:rgba(59,158,255,0.28);background:rgba(59,158,255,0.06);">
+      🔗 <strong>İlgili SeismoReport:</strong> Vs₃₀ Zemin Sınıflandırması, Ölçüm Standartları ve Tapu Entegrasyonu için bkz.
+      <a href="https://aliosmanoncel.blogspot.com/p/vs30-soilclassification.html" target="_blank" style="color:#7dd3fc;">
+        aliosmanoncel.blogspot.com/p/vs30-soilclassification.html
+      </a>
+    </div>
+
+    <!-- KAYNAKÇA -->
+    <div class="ep-section-title">📚 Kaynakça (APA 7)</div>
+    <div class="ep-ref">Havskov, J., &amp; Alguacil, G. (2016). <em>Instrumentation in Earthquake Seismology</em> (2nd ed.). Springer. <a href="https://doi.org/10.1007/978-3-319-21395-0" target="_blank">https://doi.org/10.1007/978-3-319-21395-0</a></div>
+    <div class="ep-ref">Öncel, A. O., &amp; Wilson, T. (2006). Evaluation of earthquake potential along the Northern Anatolian Fault Zone in the Marmara Sea. <em>Tectonophysics, 418</em>(3–4), 205–218. <a href="https://doi.org/10.1016/j.tecto.2006.02.003" target="_blank">https://doi.org/10.1016/j.tecto.2006.02.003</a></div>
+    <div class="ep-ref">Öncel, A. O., &amp; Main, I. (1996). Temporal variations in the fractal properties of seismicity in the North Anatolian Fault Zone. <em>Pure and Applied Geophysics, 147</em>(1), 147–159. <a href="https://doi.org/10.1007/BF00876445" target="_blank">https://doi.org/10.1007/BF00876445</a></div>
+    <div class="ep-ref">Shearer, P. M. (2009). <em>Introduction to Seismology</em> (2nd ed.). Cambridge University Press.</div>
+    <div class="ep-ref">USGS. (2023). <em>Graduate Programs in Seismology and Geophysics</em>. <a href="https://www.usgs.gov" target="_blank">https://www.usgs.gov</a></div>
+    <div class="ep-ref">T.C. Çevre, Şehircilik ve İklim Değişikliği Bakanlığı. (2018). <em>Türkiye Bina Deprem Yönetmeliği (TBDY-2018)</em>.</div>
+
+    <!-- EXPORT -->
+    <div class="ep-export">
+      <div class="ep-export-info">
+        <h4>📤 Akademik Dışa Aktarma</h4>
+        <p>Makale + tüm bölümler · A4 tipografi · ExportEngine v3.1</p>
+      </div>
+      <button class="ep-btn-pdf" onclick="epExportPDF()">📄 PDF / Yazdır</button>
+      <button class="ep-btn-word" onclick="epExportWord()">📝 Word Belgesi</button>
+    </div>
+
+    <!-- CTA -->
+    <div class="ep-cta">
+      <a class="ep-cta-btn" href="https://aliosmanoncel.blogspot.com/p/seismologyengineering-global.html" target="_blank">
+        📄 Tam Raporu Görüntüle →
+      </a>
+    </div>
+
+    <!-- YAZAR -->
+    <div class="ep-author">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0QIWZ7FXHVMJKM9-pxZFCi9ERyknE3vmJFmkZAbJCsxnBQcI4g_Gz0LSSP-eFPIHXfp7y-kVuMFI4p5ux3yfQhHqxCWRULJZ0QL8QR7CGbFcaSuPrE8Kpjy4XHHKC7k0IIMK_zS5zDiqBiFyQ-OsPlhR0I6UVZIUJdwz9F8e0Ga5f_y2Jxst2I/s320/foto-oncel.jpg" alt="Prof. Dr. Ali Osman Öncel"/>
+      <div class="ep-author-info">
+        <h4>Prof. Dr. Ali Osman Öncel</h4>
+        <p>İstanbul Üniversitesi–Cerrahpaşa, Jeofizik Mühendisliği Bölümü<br>
+        ali.oncel@iuc.edu.tr · Haziran 2026</p>
+      </div>
+    </div>
+
+    <!-- SHARE -->
+    <div class="ep-share">
+      <a class="ep-share-btn ep-share-tw" href="https://twitter.com/intent/tweet?text=Sismoloji+M%C3%BChendisli%C4%9Fi%3A+T%C3%BCrkiye%27de+Ba%C4%9F%C4%B1ms%C4%B1z+Bir+Disiplin+Olmal%C4%B1&url=https://aliosmanoncel.blogspot.com/p/seismologyengineering-global.html" target="_blank">🐦 Twitter</a>
+      <a class="ep-share-btn ep-share-wa" href="https://api.whatsapp.com/send?text=Sismoloji+M%C3%BChendisli%C4%9Fi+Makale%3A+https://aliosmanoncel.blogspot.com/p/seismologyengineering-global.html" target="_blank">💬 WhatsApp</a>
+      <a class="ep-share-btn ep-share-li" href="https://www.linkedin.com/sharing/share-offsite/?url=https://aliosmanoncel.blogspot.com/p/seismologyengineering-global.html" target="_blank">💼 LinkedIn</a>
+    </div>
+
+  </div><!-- /ep-content -->
+
+  <div class="ep-footer">
+    © 2026 Prof. Dr. Ali Osman Öncel · İstanbul Üniversitesi–Cerrahpaşa · Jeofizik Mühendisliği<br>
+    Sismoloji Mühendisliği | TBDY-2018 · Eurocode 8 · NEHRP · PSHA · Mikrobölgeleme
+  </div>
+
+</div><!-- /ep-wrap -->
+
+<script>
+/* ── Theme ── */
+function epToggleTheme(){document.getElementById('ep-wrap').classList.toggle('light');}
+
+/* ── TTS ── */
+let epSpeaking=false;
+function epSpeak(){
+  if(speechSynthesis.speaking)speechSynthesis.cancel();
+  const txt=document.getElementById('ep-body').innerText.slice(0,3000);
+  const u=new SpeechSynthesisUtterance(txt);
+  u.lang='tr-TR';u.rate=0.92;
+  speechSynthesis.speak(u);epSpeaking=true;
+}
+function epStopSpeak(){speechSynthesis.cancel();epSpeaking=false;}
+
+/* ── Read time ── */
+(function(){
+  const wc=document.getElementById('ep-body').innerText.split(/\s+/).length;
+  const min=Math.ceil(wc/200);
+  ['ep-readtime','ep-readtime2'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=min;});
+})();
+
+/* ── Card fade-in ── */
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.15});
+document.querySelectorAll('#ep-wrap .ep-card').forEach(c=>obs.observe(c));
+
+/* ── Export helpers ── */
+function epBody(){return document.getElementById('ep-body').innerHTML;}
+function epExportPDF(){
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8"><title>Sismoloji Mühendisliği — Öncel 2026</title>
+<style>
+@page{size:A4;margin:2cm 2.2cm 2.5cm 2.2cm;}
+body{font-family:"Times New Roman",serif;font-size:11pt;line-height:1.8;color:#000;background:#fff;}
+h1{font-size:16pt;text-align:center;margin-bottom:6pt;}
+h2,h3{font-size:12pt;border-bottom:1pt solid #666;margin:16pt 0 6pt;}
+p,li,td{text-align:justify;hyphens:auto;}
+table{width:100%;border-collapse:collapse;font-size:9.5pt;margin:10pt 0;}
+th,td{border:1pt solid #ccc;padding:4pt 6pt;}th{background:#efefef;}
+.ep-export,.ep-cta,.ep-share,.ep-toolbar{display:none!important;}
+.ep-conclusion{border-left:3pt solid #166534;background:#f0fff0;padding:8pt 10pt;}
+.ep-box-q{border:1pt solid #c9a84c;background:#fffbe8;padding:7pt 9pt;margin:5pt 0;}
+.ep-box-info{border:1pt solid #7c3aed;background:#f5f0ff;padding:7pt 9pt;font-size:9.5pt;}
+.ep-quote{border-left:3pt solid #c9a84c;padding:6pt 10pt;font-style:italic;background:#fffdf0;}
+.ep-ref{font-size:8.5pt;padding-left:2em;text-indent:-2em;margin-bottom:5pt;}
+.print-bar{position:fixed;top:0;left:0;right:0;background:#1e293b;color:#fff;padding:9px 18px;display:flex;align-items:center;font-family:sans-serif;font-size:13px;z-index:999;}
+.btn-p{margin-left:auto;background:#4c1d95;color:#fff;border:none;border-radius:7px;padding:8px 20px;font-size:13px;font-weight:bold;cursor:pointer;}
+@media print{.print-bar{display:none!important;}}
+</style></head><body>
+<div class="print-bar"><div><strong>📄 Sismoloji Mühendisliği — Prof. Dr. Ali Osman Öncel · 2026</strong></div><button class="btn-p" onclick="window.print()">🖨️ Yazdır / PDF</button></div>
+<h1>Sismoloji Mühendisliği: Türkiye'de Neden Bağımsız Bir Disiplin Olmalı?</h1>
+<p style="text-align:center;font-style:italic;">Prof. Dr. Ali Osman Öncel · İÜC Jeofizik Mühendisliği · 2026</p>
+<hr>
+${epBody()}
+</body></html>`);w.document.close();
+}
+function epExportWord(){
+  const blob=new Blob([`<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" lang="tr"><head><meta charset="utf-8"><title>Sismoloji Mühendisliği</title><style>body{font-family:"Times New Roman",serif;font-size:11pt;line-height:1.8;}h1{font-size:16pt;text-align:center;}table{border-collapse:collapse;width:100%;}th,td{border:1pt solid #ccc;padding:4pt;}p{text-align:justify;}</style></head><body><h1>Sismoloji Mühendisliği: Türkiye'de Neden Bağımsız Bir Disiplin Olmalı?</h1><p><strong>Prof. Dr. Ali Osman Öncel</strong> · İÜC Jeofizik Mühendisliği · 2026</p>${epBody()}</body></html>`],{type:'application/msword'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SismolojiMuhendisligi-Oncel2026.doc';a.click();
+}
+</script>
+</body>
+</html>

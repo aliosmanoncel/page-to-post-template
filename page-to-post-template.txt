@@ -1,0 +1,817 @@
+﻿<!--
+╔══════════════════════════════════════════════════════════════════════╗
+║  ŞABLON: page-to-post-template.txt  ·  v4.0  ·  JeoTurizm EduPanel  ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  TÜR    : Blogger POST (yazı) şablonu                                ║
+║  AMAÇ   : Makale, saha romanı, analiz yazısı gibi uzun formatlı      ║
+║           içeriği Blogger post editörüne yapıştırmak için            ║
+║  ÖRNEK  : Akademik rapor, saha romanı (280 Yıllık Sessizlik), analiz ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  ÖZELLİKLER                                                          ║
+║  · <html>/<head>/<body> YOK — doğrudan Blogger HTML editörüne yapıştır║
+║  · Tüm CSS #ep-wrap altında kapsüllü (tema çakışması yok)            ║
+║  · ep- önekli sınıflar (namespace çakışması yok)                     ║
+║  · Video kapak: thumbnail+link (Blogger iframe-safe)                 ║
+║  · Karanlık/Açık tema butonu                                         ║
+║  · PDF + Word dışa aktarma (Times New Roman, A4, justify)            ║
+║  · Otomatik okuma süresi hesaplama                                   ║
+║  · Kart, adım, alıntı, bilgi kutusu, tablo bileşenleri               ║
+║  · ep-kw (amber) + ep-kw2 (mor) — çift vurgu rengi                  ║
+║  · Google Translate widget (auto-EN, görsel kutu)                    ║
+║  · TTS sesli okuma butonu (Web Speech API, dil otomatik)             ║
+║  · AHEAD / INGV / ShakeMap veri linkleri                             ║
+║  · text-wrap:balance (orphan kelime önleme)                          ║
+║  · Tablo scroll wrapper (.ep-table-wrap)                             ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  NE ZAMAN KULLAN                                                     ║
+║  → Tek konulu blog yazısı / akademik not                             ║
+║  → Video + metin kombinasyonu post                                   ║
+║  → Saha Romanı (anlatı): --ep-accent3 morunu hero+section'da kullan  ║
+║  → Harita veya güzergah GEREKMİYOR                                   ║
+║  → Hızlı üretim (en sade şablon)                                     ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  DEĞİŞTİRİLECEK YERLER                                               ║
+║  · POST_BASLIGI  → Yazı başlığı                                      ║
+║  · POST_TUR      → İçerik türü (Makale, Saha Romanı…)                ║
+║  · POST_ALTKONU  → Alt başlık / kısa açıklama                        ║
+║  · POST_TARIH    → Yayın tarihi (ör. Mayıs 2026)                     ║
+║  · VIDEO_ID      → YouTube video ID (3 yerde)                        ║
+║  · POST_OZET_UZUN → Abstract metni                                   ║
+║  SAHA ROMANI İÇİN EK:                                                ║
+║  · hero radial-gradient rengini rgba(167,139,250,.22) yap (mor)      ║
+║  · ep-hero-tag, ep-badge, ep-step-num → accent3 kullan               ║
+║  · ep-section border → rgba(167,139,250,.25) yap                     ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  KULLANIM: Kopyala → yeniden adlandır → doldurup Blogger'a yapıştır  ║
+╚══════════════════════════════════════════════════════════════════════╝
+-->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+#ep-wrap {
+  --ep-bg:#0d1117; --ep-text:#e2e8f0; --ep-panel:#111827; --ep-muted:#7c9cbd;
+  --ep-accent:#e11d48; --ep-accent2:#f59e0b; --ep-accent3:#a78bfa;
+  --ep-glass:rgba(255,255,255,.03); --ep-border:rgba(255,255,255,.08);
+  font-family:'DM Sans',sans-serif;
+  background:var(--ep-bg);
+  color:var(--ep-text);
+  line-height:1.8;
+  text-align:justify;
+  max-width:780px;
+  margin:0 auto;
+  padding:24px 24px 60px;
+  transition:background .4s,color .4s;
+}
+#ep-wrap[data-theme="light"] {
+  --ep-bg:#f0f4f8; --ep-text:#1a202c; --ep-panel:#ffffff; --ep-muted:#4a6280;
+  --ep-accent:#c41535; --ep-accent2:#b45309; --ep-accent3:#7c3aed;
+  --ep-glass:rgba(0,0,0,.02); --ep-border:rgba(0,0,0,.1);
+}
+#ep-wrap * { box-sizing:border-box; }
+
+/* HEADER */
+#ep-wrap .ep-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:16px 0 20px;border-bottom:1px solid var(--ep-border);margin-bottom:28px;}
+#ep-wrap .ep-badge{background:linear-gradient(135deg,var(--ep-accent),var(--ep-accent2));padding:5px 14px;border-radius:100px;font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;color:#fff;letter-spacing:.08em;text-transform:uppercase;}
+#ep-wrap .ep-brand-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--ep-text);margin-top:5px;}
+#ep-wrap .ep-brand-sub{font-size:.78rem;color:var(--ep-muted);}
+#ep-wrap .ep-theme-btn{border:1px solid var(--ep-border);padding:7px 14px;border-radius:100px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;background:var(--ep-glass);color:var(--ep-text);transition:all .2s;}
+#ep-wrap .ep-theme-btn:hover{border-color:var(--ep-accent);color:var(--ep-accent);}
+
+/* HERO */
+#ep-wrap .ep-hero{background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(225,29,72,.18),transparent 70%),linear-gradient(135deg,#070c18,#0d1525);border-radius:20px;padding:44px 32px;text-align:center;margin-bottom:28px;border:1px solid var(--ep-border);overflow:hidden;}
+#ep-wrap .ep-hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(225,29,72,.1);border:1px solid rgba(225,29,72,.25);padding:5px 14px;border-radius:100px;font-size:.78rem;color:var(--ep-accent);margin-bottom:18px;font-weight:600;}
+#ep-wrap .ep-hero h1{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;line-height:1.15;margin-bottom:12px;text-wrap:balance;}
+#ep-wrap .ep-hero h1 span{background:linear-gradient(90deg,var(--ep-accent),var(--ep-accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+#ep-wrap .ep-hero .ep-lead{font-size:1rem;color:var(--ep-muted);max-width:520px;margin:0 auto 20px;}
+#ep-wrap .ep-pills{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;}
+#ep-wrap .ep-pill{padding:4px 12px;border-radius:100px;font-size:.75rem;font-weight:600;border:1px solid var(--ep-border);color:var(--ep-muted);background:var(--ep-glass);}
+
+/* META */
+#ep-wrap .ep-meta-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 20px;font-size:.8rem;color:var(--ep-muted);}
+
+/* VIDEO KAPAK */
+#ep-wrap .ep-video{margin:0 0 28px;border-radius:16px;overflow:hidden;border:1px solid rgba(225,29,72,.25);}
+#ep-wrap .ep-video a{display:block;position:relative;line-height:0;border-radius:12px;overflow:hidden;}
+#ep-wrap .ep-video img{width:100%;display:block;}
+#ep-wrap .ep-video .ep-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:68px;height:68px;background:rgba(225,29,72,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.5);}
+#ep-wrap .ep-video .ep-play-arrow{width:0;height:0;border-style:solid;border-width:13px 0 13px 26px;border-color:transparent transparent transparent #fff;margin-left:5px;}
+#ep-wrap .ep-video-cap{padding:12px 18px;background:linear-gradient(135deg,rgba(225,29,72,.07),rgba(245,158,11,.04));border-top:1px solid rgba(225,29,72,.2);font-size:.78rem;color:var(--ep-muted);font-style:italic;text-align:justify;hyphens:auto;}
+
+/* ÖZET KUTUSU */
+#ep-wrap .ep-summary{background:linear-gradient(135deg,rgba(225,29,72,.1),rgba(225,29,72,.03));border:1px solid rgba(225,29,72,.25);border-radius:16px;padding:24px 24px 24px 70px;margin:24px 0;position:relative;}
+#ep-wrap .ep-summary::before{content:"\1F3AC";font-size:1.8rem;position:absolute;top:20px;left:20px;}
+#ep-wrap .ep-summary h3{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;color:var(--ep-accent);margin-bottom:10px;}
+#ep-wrap .ep-summary p{font-size:.92rem;font-style:italic;color:var(--ep-text);opacity:.88;margin-bottom:8px;}
+#ep-wrap .ep-summary .ep-note{font-size:.78rem;color:var(--ep-muted);font-style:normal;}
+
+/* STAT KUTUSU */
+#ep-wrap .ep-stats{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0;}
+#ep-wrap .ep-stat{flex:1;min-width:110px;background:linear-gradient(135deg,rgba(225,29,72,.1),rgba(225,29,72,.03));border:1px solid rgba(225,29,72,.2);border-radius:14px;padding:16px;text-align:center;}
+#ep-wrap .ep-stat-num{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:800;color:var(--ep-accent);}
+#ep-wrap .ep-stat-label{font-size:.75rem;color:var(--ep-muted);margin-top:4px;}
+#ep-wrap .ep-stat-sub{font-size:.7rem;color:var(--ep-muted);opacity:.7;margin-top:3px;}
+
+/* BÖLÜM BAŞLIĞI */
+#ep-wrap .ep-section{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--ep-accent);margin:32px 0 14px;display:flex;align-items:center;gap:10px;border-bottom:2px solid rgba(225,29,72,.2);padding-bottom:8px;text-wrap:balance;}
+
+/* KART GRUBU */
+#ep-wrap .ep-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:20px 0;}
+#ep-wrap .ep-card{background:var(--ep-panel);border:1px solid var(--ep-border);border-radius:14px;padding:18px;transition:border-color .2s,transform .2s;}
+#ep-wrap .ep-card:hover{border-color:var(--ep-accent);transform:translateY(-2px);}
+#ep-wrap .ep-card .ep-icon{font-size:1.6rem;margin-bottom:10px;}
+#ep-wrap .ep-card h4{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;margin-bottom:6px;color:var(--ep-accent);}
+#ep-wrap .ep-card p{font-size:.82rem;opacity:.72;line-height:1.6;}
+
+/* ADIM SIRASI */
+#ep-wrap .ep-steps{display:flex;flex-direction:column;margin:20px 0;}
+#ep-wrap .ep-step{display:flex;gap:16px;align-items:flex-start;padding:18px;background:var(--ep-panel);border:1px solid var(--ep-border);}
+#ep-wrap .ep-step:first-child{border-radius:14px 14px 0 0;}
+#ep-wrap .ep-step:last-child{border-radius:0 0 14px 14px;}
+#ep-wrap .ep-step-num{width:40px;height:40px;border-radius:50%;background:var(--ep-accent);color:#fff;font-weight:700;font-family:'Syne',sans-serif;font-size:1.1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+#ep-wrap .ep-step-body h4{margin:0 0 4px;color:var(--ep-accent);font-family:'Syne',sans-serif;font-size:.9rem;}
+#ep-wrap .ep-step-body p{margin:0;font-size:.88rem;opacity:.8;}
+#ep-wrap .ep-connector{width:2px;background:rgba(225,29,72,.3);height:20px;margin-left:19px;}
+
+/* ALINTI */
+#ep-wrap .ep-quote{border-left:3px solid var(--ep-accent2);padding:14px 20px;margin:20px 0;background:rgba(245,158,11,.05);border-radius:0 12px 12px 0;font-style:italic;font-size:1rem;}
+#ep-wrap .ep-quote cite{display:block;margin-top:8px;font-style:normal;font-size:.78rem;color:var(--ep-muted);}
+
+/* BİLGİ KUTULARI */
+#ep-wrap .ep-box{border-radius:14px;padding:18px 22px;margin:20px 0;font-size:.92rem;}
+#ep-wrap .ep-box-red{background:rgba(225,29,72,.07);border:1px solid rgba(225,29,72,.2);}
+#ep-wrap .ep-box-red strong{color:var(--ep-accent);}
+#ep-wrap .ep-box-warn{background:rgba(245,87,108,.07);border:1px solid rgba(245,87,108,.2);}
+#ep-wrap .ep-box-warn strong{color:#f5576c;}
+#ep-wrap .ep-box-gold{background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);}
+#ep-wrap .ep-box-gold strong{color:#c9a84c;}
+#ep-wrap .ep-box-green{background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.2);}
+#ep-wrap .ep-box-green strong{color:#22c55e;}
+
+/* DÜŞÜNCE KUTUSU */
+#ep-wrap .ep-think{background:rgba(167,139,250,.08);border-left:4px solid var(--ep-accent3);padding:16px 18px 16px 60px;border-radius:12px;margin:24px 0;font-style:italic;position:relative;font-size:.92rem;}
+#ep-wrap .ep-think::before{content:"\1F4A1";font-size:1.6rem;position:absolute;top:14px;left:14px;}
+#ep-wrap .ep-think strong{display:block;margin-bottom:6px;font-style:normal;color:var(--ep-accent3);}
+
+/* TABLO */
+/* NOT: Blogger <style> bloğundaki tablo kurallarını eziyor.
+   CSS sınıfları yedek olarak bırakıldı; asıl stil tablo HTML'inde
+   inline style ile verilmeli &#x2014; aşağıdaki örneğe bakın.
+   ⚠️ table-layout:auto zorunlu — fixed Blogger'da sütunları bozar.
+   ⚠️ İlk sütun th/td için white-space:nowrap inline eklenmeli. */
+#ep-wrap .ep-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.88rem;table-layout:fixed;}
+#ep-wrap .ep-table th{background:rgba(225,29,72,.15);padding:10px 12px;text-align:left;border-bottom:2px solid var(--ep-accent);font-family:'Syne',sans-serif;word-break:keep-all;}
+#ep-wrap .ep-table td{padding:9px 12px;border-bottom:1px solid var(--ep-border);vertical-align:middle;line-height:1.65;word-break:break-word;text-align:justify;hyphens:auto;}
+#ep-wrap .ep-table td:first-child{font-weight:700;color:var(--ep-accent);font-family:'Syne',sans-serif;white-space:nowrap;width:140px;text-align:center;vertical-align:middle;hyphens:none;}
+#ep-wrap .ep-table tr:hover td{background:rgba(255,255,255,.02);}
+
+/* ETİKETLER */
+#ep-wrap .ep-tags{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0 0;}
+#ep-wrap .ep-tag{padding:6px 16px;border-radius:100px;font-size:.78rem;font-weight:600;border:1px solid var(--ep-border);color:var(--ep-muted);background:var(--ep-glass);}
+
+/* AYRAÇ */
+#ep-wrap .ep-divider{height:1px;background:linear-gradient(90deg,transparent,var(--ep-border),transparent);margin:28px 0;}
+
+/* METİN */
+#ep-wrap .ep-intro{font-size:.95rem;opacity:.85;margin:24px 0 16px;line-height:1.8;}
+#ep-wrap .ep-p{font-size:.96rem;line-height:1.9;margin:16px 0;opacity:.9;}
+#ep-wrap .ep-kw{color:var(--ep-accent2);font-weight:600;}
+/* ep-kw2: ikincil vurgu — Saha Romanı ve anlatı yazılarında mor (accent3) ton için */
+#ep-wrap .ep-kw2{color:var(--ep-accent3);font-weight:600;}
+
+/* DIŞA AKTARMA */
+#ep-wrap .ep-export{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.3);border-radius:14px;padding:14px 20px;margin:28px 0;}
+#ep-wrap .ep-export-info{display:flex;align-items:center;gap:10px;flex:1;min-width:180px;}
+#ep-wrap .ep-export-icon{width:34px;height:34px;border-radius:8px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+#ep-wrap .ep-export-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;color:#e8c97a;}
+#ep-wrap .ep-export-sub{font-size:.68rem;color:var(--ep-muted);margin-top:2px;}
+#ep-wrap .ep-btn{padding:9px 18px;border-radius:8px;font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:all .2s;white-space:nowrap;border:1px solid;}
+#ep-wrap .ep-btn-pdf{background:#1a3a6e;border-color:rgba(56,189,248,.4);color:#7ab8ff;}
+#ep-wrap .ep-btn-pdf:hover{background:#1e4a8a;}
+#ep-wrap .ep-btn-word{background:#0f3020;border-color:rgba(34,197,94,.4);color:#4ade80;}
+#ep-wrap .ep-btn-word:hover{background:#163d28;}
+
+/* YAZAR KARTI */
+#ep-wrap .ep-author{display:flex;align-items:center;gap:18px;background:var(--ep-panel);border:1px solid var(--ep-border);border-radius:16px;padding:20px 24px;margin:28px 0;flex-wrap:wrap;}
+#ep-wrap .ep-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--ep-accent),var(--ep-accent2));display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;}
+#ep-wrap .ep-author-info{flex:1;min-width:180px;}
+#ep-wrap .ep-author-name{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--ep-text);margin-bottom:3px;}
+#ep-wrap .ep-author-role{font-size:.78rem;color:var(--ep-accent);margin-bottom:5px;}
+#ep-wrap .ep-author-bio{font-size:.8rem;color:var(--ep-muted);line-height:1.6;}
+#ep-wrap .ep-author-link{display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-size:.75rem;font-weight:600;color:var(--ep-accent);text-decoration:none;border:1px solid rgba(225,29,72,.3);border-radius:100px;padding:3px 10px;background:rgba(225,29,72,.06);}
+
+/* PAYLAŞIM */
+#ep-wrap .ep-share{margin:28px 0 0;}
+#ep-wrap .ep-share-label{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ep-muted);margin-bottom:10px;}
+#ep-wrap .ep-share-btns{display:flex;flex-wrap:wrap;gap:9px;}
+#ep-wrap .ep-share-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:100px;font-family:'Syne',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;text-decoration:none;border:1px solid var(--ep-border);background:var(--ep-glass);color:var(--ep-text);transition:all .2s;}
+#ep-wrap .ep-share-btn:hover{transform:translateY(-2px);}
+#ep-wrap .ep-tw{border-color:rgba(29,161,242,.35);color:#1da1f2;}
+#ep-wrap .ep-wa{border-color:rgba(37,211,102,.35);color:#25d366;}
+#ep-wrap .ep-cp{border-color:rgba(167,139,250,.35);color:var(--ep-accent3);}
+#ep-wrap .ep-ml{border-color:rgba(225,29,72,.35);color:var(--ep-accent);}
+
+/* CTA */
+#ep-wrap .ep-cta{text-align:center;margin:36px 0 16px;}
+#ep-wrap .ep-cta-btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--ep-accent),var(--ep-accent2));color:#fff;border:none;padding:16px 36px;border-radius:100px;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;text-decoration:none;box-shadow:0 8px 28px rgba(225,29,72,.35);transition:opacity .2s,transform .2s;}
+#ep-wrap .ep-cta-btn:hover{opacity:.88;transform:translateY(-2px);}
+#ep-wrap .ep-cta-sub{font-size:.8rem;color:var(--ep-muted);margin-top:10px;}
+
+/* FOOTER */
+#ep-wrap .ep-footer{text-align:justify;hyphens:auto;padding:24px 0 0;color:var(--ep-muted);font-size:.82rem;border-top:1px solid var(--ep-border);}
+#ep-wrap .ep-footer strong{color:var(--ep-accent);}
+
+/* TİPOGRAFİ — Blogger uyumluluk standardı */
+#ep-wrap figcaption{text-align:justify;hyphens:auto;}
+#ep-wrap .ep-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0;}
+#ep-wrap .ep-table-wrap table{min-width:480px;}
+
+/* ROZET */
+#ep-wrap .ep-badge-ev{display:inline-block;font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;padding:2px 9px;border-radius:100px;margin-right:4px;vertical-align:middle;font-weight:700;}
+#ep-wrap .ep-ev{background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.3);color:#38bdf8;}
+#ep-wrap .ep-prop{background:rgba(232,255,71,.08);border:1px solid rgba(232,255,71,.25);color:#e8ff47;}
+
+@media(max-width:600px){
+  #ep-wrap .ep-hero h1{font-size:1.6rem;}
+  #ep-wrap .ep-hero{padding:32px 20px;}
+  #ep-wrap .ep-author{flex-direction:column;text-align:center;}
+  #ep-wrap .ep-cards{grid-template-columns:1fr;}
+}
+</style>
+
+<div id="ep-wrap">
+
+<!-- HEADER -->
+<div class="ep-header">
+  <div>
+    <div class="ep-badge">POST_TUR · EduPanel</div>
+    <div class="ep-brand-title">POST_BASLIGI</div>
+    <div class="ep-brand-sub">POST_ALTKONU · <span style="opacity:.6;">POST_TARIH</span></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <!-- Google Translate — görsel kutu -->
+    <div style="display:flex;align-items:center;gap:7px;background:linear-gradient(135deg,rgba(59,158,255,0.12),rgba(30,80,140,0.18));border:1px solid rgba(59,158,255,0.35);border-radius:100px;padding:5px 12px 5px 10px;">
+      <span style="font-size:1em;line-height:1;">🌐</span>
+      <span style="font-size:0.68rem;font-weight:700;color:#90caf9;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;">Language</span>
+      <div id="google_translate_element" style="display:flex;align-items:center;"></div>
+    </div>
+    <!-- TTS -->
+    <button id="tts-btn" title="Sesli oku / Listen" style="padding:7px 13px;background:linear-gradient(135deg,#1e3a5f,#1e40af);border:1px solid rgba(59,158,255,0.45);border-radius:100px;color:#90caf9;font-weight:700;font-size:.76rem;cursor:pointer;white-space:nowrap;transition:background .2s;">🔊 Dinle</button>
+    <button class="ep-theme-btn" id="ep-theme-btn"><span id="ep-theme-icon">🌙</span> Tema</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="ep-hero">
+  <div class="ep-hero-tag">📍 POST_TUR · POST_TARIH</div>
+  <!-- ⚠️ <br> KULLANMA — "Earthquake" gibi tek kelime alta düşer (orphan).
+       İki parçayı boşlukla yaz; text-wrap:balance otomatik dengeler. -->
+  <h1>POST_BASLIGI_SATIR1 <span>POST_BASLIGI_SATIR2</span></h1>
+  <p class="ep-lead">POST_OZET_KISA &#x2014; tek cümlelik giriş ifadesi buraya.</p>
+  <div class="ep-pills">
+    <span class="ep-pill">🏷️ Etiket 1</span>
+    <span class="ep-pill">🏷️ Etiket 2</span>
+    <span class="ep-pill">🏷️ Etiket 3</span>
+  </div>
+</div>
+
+<!-- Google Translate widget header'da — aşağıya taşındı (script bloğuna bakın) -->
+
+<!-- VİDEO KAPAK — DEĞİŞTİR ═══════════════════════
+     · iframe: Blogger içinde oynar (önerilen)
+     · VIDEO_ID → YouTube video ID
+     · Video yoksa bu bloğu sil
+════════════════════════════════════════════════════ -->
+<div class="ep-video" style="margin:0 0 28px;">
+  <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;">
+    <iframe src="https://www.youtube.com/embed/VIDEO_ID?rel=0&amp;showinfo=0"
+      title="POST_BASLIGI — Prof. Dr. Ali Osman Öncel"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
+  </div>
+  <div class="ep-video-cap">🎬 POST_BASLIGI — Özet Video &middot; POST_TARIH</div>
+</div>
+
+<!-- OKUMA SÜRESİ -->
+<div class="ep-meta-row">
+  <span>📅 POST_TARIH</span>
+  <span>⏱️ <span id="ep-read-time">~6 dk</span> okuma</span>
+  <span>✍️ POST_TUR</span>
+  <span>📡 JeoTurizm EduPanel</span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     VIDEO KAPAK
+     VIDEO_ID → youtu.be/XXXX adresindeki XXXX kısmı
+     3 yerde değiştir: href, img src, alt
+     ═══════════════════════════════════════════════════ -->
+<div class="ep-video">
+  <a href="https://youtu.be/VIDEO_ID" target="_blank" rel="noopener">
+    <img src="https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg"
+         alt="POST_BASLIGI &#x2014; Prof. Dr. Ali Osman Öncel" />
+    <div class="ep-play"><div class="ep-play-arrow"></div></div>
+  </a>
+  <div class="ep-video-cap">🎬 POST_BASLIGI &#x2014; Özet Video &middot; Tıkla &amp; İzle &middot; POST_TARIH</div>
+</div>
+
+<!-- ÖZET KUTUSU -->
+<div class="ep-summary">
+  <h3>Yazının Özü</h3>
+  <p>POST_OZET_UZUN &#x2014; yazının ana mesajını özetleyen 2-3 cümle buraya.</p>
+  <p class="ep-note">📍 Kullanım: Hedef kitle ve kullanım amacı buraya.</p>
+</div>
+
+<!-- STAT KUTULARI -->
+<!-- ⚠️ Blogger flexbox (.ep-stats) class kurallarını eziyor.
+     Inline style + table-layout kullan — 2x2 grid en güvenli.
+     SAYI1–4 → kısa tut, white-space:nowrap taşmayı önler. -->
+<table style="width:100%;border-collapse:separate;border-spacing:10px;margin:24px 0;table-layout:fixed;">
+  <tr>
+    <td style="width:50%;background:linear-gradient(135deg,rgba(225,29,72,.1),rgba(225,29,72,.03));border:1px solid rgba(225,29,72,.2);border-radius:14px;padding:18px 12px;text-align:center;vertical-align:top;">
+      <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:#e11d48;line-height:1.2;">SAYI1</div>
+      <div style="font-size:.78rem;color:#7c9cbd;margin-top:6px;">Stat Etiketi 1</div>
+      <div style="font-size:.68rem;color:#7c9cbd;opacity:.7;margin-top:3px;">Kaynak / not</div>
+    </td>
+    <td style="width:50%;background:linear-gradient(135deg,rgba(225,29,72,.1),rgba(225,29,72,.03));border:1px solid rgba(225,29,72,.2);border-radius:14px;padding:18px 12px;text-align:center;vertical-align:top;">
+      <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:#e11d48;line-height:1.2;">SAYI2</div>
+      <div style="font-size:.78rem;color:#7c9cbd;margin-top:6px;">Stat Etiketi 2</div>
+      <div style="font-size:.68rem;color:#7c9cbd;opacity:.7;margin-top:3px;">Kaynak / not</div>
+    </td>
+  </tr>
+  <tr>
+    <td style="width:50%;background:linear-gradient(135deg,rgba(225,29,72,.1),rgba(225,29,72,.03));border:1px solid rgba(225,29,72,.2);border-radius:14px;padding:18px 12px;text-align:center;vertical-align:top;">
+      <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:#e11d48;line-height:1.2;">SAYI3</div>
+      <div style="font-size:.78rem;color:#7c9cbd;margin-top:6px;">Stat Etiketi 3</div>
+      <div style="font-size:.68rem;color:#7c9cbd;opacity:.7;margin-top:3px;">Kaynak / not</div>
+    </td>
+    <td style="width:50%;background:linear-gradient(135deg,rgba(225,29,72,.1),rgba(225,29,72,.03));border:1px solid rgba(225,29,72,.2);border-radius:14px;padding:18px 12px;text-align:center;vertical-align:top;">
+      <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:#e11d48;line-height:1.2;">SAYI4</div>
+      <div style="font-size:.78rem;color:#7c9cbd;margin-top:6px;">Stat Etiketi 4</div>
+      <div style="font-size:.68rem;color:#7c9cbd;opacity:.7;margin-top:3px;">Kaynak / not</div>
+    </td>
+  </tr>
+</table>
+
+<div class="ep-divider"></div>
+
+<!-- ADIM SIRASI (hikâye perdesi veya yöntem adımları) -->
+<div class="ep-section">📖 Bölüm Başlığı</div>
+<div class="ep-steps">
+  <div class="ep-step">
+    <div class="ep-step-num">01</div>
+    <div class="ep-step-body">
+      <h4>Adım Başlığı 1</h4>
+      <p>Adım açıklaması buraya.</p>
+    </div>
+  </div>
+  <div class="ep-connector"></div>
+  <div class="ep-step">
+    <div class="ep-step-num">02</div>
+    <div class="ep-step-body">
+      <h4>Adım Başlığı 2</h4>
+      <p>Adım açıklaması buraya.</p>
+    </div>
+  </div>
+  <div class="ep-connector"></div>
+  <div class="ep-step">
+    <div class="ep-step-num">03</div>
+    <div class="ep-step-body">
+      <h4>Adım Başlığı 3</h4>
+      <p>Adım açıklaması buraya.</p>
+    </div>
+  </div>
+</div>
+
+<div class="ep-divider"></div>
+
+<!-- METİN BÖLÜMÜ -->
+<div class="ep-section">📝 Tam Metin</div>
+
+<p class="ep-p">Giriş paragrafı buraya &#x2014; <strong class="ep-kw">önemli kavramlar</strong> bu şekilde vurgulanır.</p>
+
+<div class="ep-quote">
+  "Alıntı metni buraya."
+  <cite>&#x2014; Kaynak, Yıl</cite>
+</div>
+
+<p class="ep-p">Devam paragrafı buraya.</p>
+
+<div class="ep-think">
+  <strong>Düşünce başlığı</strong>
+  Düşünce kutusu metni buraya &#x2014; italik, mor çizgili, ampul simgeli.
+</div>
+
+<div class="ep-divider"></div>
+
+<!-- KART GRUBU -->
+<div class="ep-section">🔬 Tematik Katmanlar</div>
+<div class="ep-cards">
+  <div class="ep-card">
+    <div class="ep-icon">🌍</div>
+    <h4>Kart Başlığı 1</h4>
+    <p>Kart açıklaması buraya.</p>
+  </div>
+  <div class="ep-card">
+    <div class="ep-icon">📊</div>
+    <h4>Kart Başlığı 2</h4>
+    <p>Kart açıklaması buraya.</p>
+  </div>
+  <div class="ep-card">
+    <div class="ep-icon">🎯</div>
+    <h4>Kart Başlığı 3</h4>
+    <p>Kart açıklaması buraya.</p>
+  </div>
+  <div class="ep-card">
+    <div class="ep-icon">🧠</div>
+    <h4>Kart Başlığı 4</h4>
+    <p>Kart açıklaması buraya.</p>
+  </div>
+</div>
+
+<div class="ep-divider"></div>
+
+<!-- BİLGİ KUTULARI ÖRNEKLERİ -->
+<div class="ep-box ep-box-red">
+  <strong>📌 Kırmızı kutu başlığı:</strong> Ana mesaj veya özet buraya.
+  <div class="ep-tags" style="margin-top:12px;">
+    <span class="ep-tag">🏷️ Etiket 1</span>
+    <span class="ep-tag">🏷️ Etiket 2</span>
+    <span class="ep-tag">🏷️ Etiket 3</span>
+  </div>
+</div>
+
+<div class="ep-box ep-box-gold" style="margin-top:16px;">
+  <strong>🔑 Altın kutu başlığı:</strong> Anahtar içgörü veya sonuç buraya.
+</div>
+
+<div class="ep-box ep-box-warn" style="margin-top:16px;">
+  <strong>⚠️ Uyarı kutu başlığı:</strong> Sınırlılık veya dikkat notu buraya.
+</div>
+
+<div class="ep-box ep-box-green" style="margin-top:16px;">
+  <strong>✅ Yeşil kutu başlığı:</strong> Bilimsel ilke veya olumlu bulgu buraya.
+</div>
+
+<!-- TABLO (isteğe bağlı) -->
+<!-- ⚠️ Blogger inline-style zorunlu: <style> bloğundaki tablo kurallarını eziyor.
+     Kurallar:
+     · table style'ına table-layout:auto ekle (fixed Blogger'da sütunları bozar)
+     · İlk <th> için white-space:nowrap + uygun width (içeriğe göre ~120–160px)
+     · İlk <td> her satırda white-space:nowrap ile kırılmayı önle
+     · Diğer <td> için vertical-align:top + word-wrap:break-word yeterli -->
+<div class="ep-section">📋 Karşılaştırma Tablosu</div>
+<table class="ep-table" style="width:100%;border-collapse:collapse;margin:16px 0;font-size:.88rem;table-layout:auto;">
+  <thead>
+    <tr>
+      <th style="background:rgba(225,29,72,.15);padding:10px 12px;text-align:left;border-bottom:2px solid #e11d48;font-family:'Syne',sans-serif;width:130px;white-space:nowrap;">Sütun 1</th>
+      <th style="background:rgba(225,29,72,.15);padding:10px 12px;text-align:left;border-bottom:2px solid #e11d48;font-family:'Syne',sans-serif;">Sütun 2</th>
+      <th style="background:rgba(225,29,72,.15);padding:10px 12px;text-align:left;border-bottom:2px solid #e11d48;font-family:'Syne',sans-serif;">Sütun 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);white-space:nowrap;font-weight:700;color:#e11d48;vertical-align:top;"><strong>Veri 1</strong></td>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;word-wrap:break-word;">Veri 2</td>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;word-wrap:break-word;">Veri 3</td>
+    </tr>
+    <tr>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);white-space:nowrap;font-weight:700;color:#e11d48;vertical-align:top;"><strong>Veri 4</strong></td>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;word-wrap:break-word;">Veri 5</td>
+      <td style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top;word-wrap:break-word;">Veri 6</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- DIŞA AKTARMA -->
+<div class="ep-export">
+  <div class="ep-export-info">
+    <div class="ep-export-icon">📤</div>
+    <div>
+      <div class="ep-export-title">PDF / Word olarak dışa aktar</div>
+      <div class="ep-export-sub">Times New Roman · Akademik format · Abstract</div>
+    </div>
+  </div>
+  <button id="tts-btn-export" onclick="document.getElementById('tts-btn').click()" style="padding:9px 16px;border-radius:8px;font-family:'Syne',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(59,158,255,.4);background:#1a3a6e;color:#7ab8ff;white-space:nowrap;">🔊 Dinle</button>
+  <button class="ep-btn ep-btn-pdf" id="ep-pdf">📄 PDF indir</button>
+  <button class="ep-btn ep-btn-word" id="ep-word">📝 Word indir</button>
+</div>
+
+<!-- AHEAD / Veri Linkleri — isteğe bağlı, sismoloji yazılarında kullan -->
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:-16px 0 28px;padding:8px 16px;background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.18);border-radius:10px;font-size:.75rem;color:#6a8faa;">
+  🗄️ <strong style="color:#86efac;">Veri:</strong>
+  <a href="https://emidius.eu/AHEAD/query_event/" target="_blank" style="color:#64b5f6;text-decoration:none;font-weight:600;">AHEAD</a> ·
+  <a href="http://cnt.rm.ingv.it/en" target="_blank" style="color:#64b5f6;text-decoration:none;font-weight:600;">INGV-ISIDe</a> ·
+  <a href="https://shakemap.ingv.it" target="_blank" style="color:#64b5f6;text-decoration:none;font-weight:600;">ShakeMap</a> ·
+  <a href="https://doi.org/10.13127/cpti/cpti15.4" target="_blank" style="color:#64b5f6;text-decoration:none;font-weight:600;">CPTI15</a>
+  <span style="margin-left:auto;opacity:.6;font-size:.68rem;">Homojenize Mw · Avrupa standardı</span>
+</div>
+
+<!-- CTA -->
+<div class="ep-cta">
+  <a class="ep-cta-btn" href="https://aliosmanoncel.blogspot.com" target="_blank">
+    🔬 Tüm Yazıları İncele →
+  </a>
+  <div class="ep-cta-sub">POST_TUR · POST_BASLIGI · POST_TARIH</div>
+</div>
+
+<div class="ep-divider"></div>
+
+<!-- YAZAR KARTI -->
+<div class="ep-author">
+  <div class="ep-avatar">🌍</div>
+  <div class="ep-author-info">
+    <div class="ep-author-name">Prof. Dr. Ali Osman Öncel</div>
+    <div class="ep-author-role">Deprem Sismolojisti · Jeofizik Mühendisi · JeoTurizm EduPanel</div>
+    <div class="ep-author-bio">Edinburgh'dan İstanbul'a; yeraltı verilerinden saha romanlarına &#x2014; bilimi insanla buluşturan bir araştırmacının yolculuğu. JeoTurizm EduPanel, jeofizik bilimini saha anlatılarıyla harmanlayan özgün bir eğitim platformudur.</div>
+    <a class="ep-author-link" href="https://aliosmanoncel.blogspot.com" target="_blank">🔗 aliosmanoncel.blogspot.com</a>
+  </div>
+</div>
+
+<!-- SOSYAL PAYLAŞIM -->
+<div class="ep-share">
+  <div class="ep-share-label">Bu içeriği paylaş</div>
+  <div class="ep-share-btns">
+    <a class="ep-share-btn ep-tw" id="ep-tw" href="#" target="_blank">𝕏 Twitter / X</a>
+    <a class="ep-share-btn ep-wa" id="ep-wa" href="#" target="_blank">💬 WhatsApp</a>
+    <a class="ep-share-btn ep-ml" id="ep-ml" href="#">✉️ E-posta</a>
+    <button class="ep-share-btn ep-cp" id="ep-cp">🔗 Linki Kopyala</button>
+  </div>
+</div>
+
+<!-- KAYNAKÇA — APA 7 formatında doldurun -->
+<div class="ep-box ep-box-blue" style="margin-top:28px;">
+  <div class="ep-box-head" style="margin-bottom:14px;">📚 Kaynakça / References</div>
+  <ol style="padding-left:1.4em;font-size:0.82rem;line-height:1.75;color:var(--ep-muted);margin:0;">
+    <li style="margin-bottom:6px;">YAZAR, A. A. (YIL). Makale başlığı. <em>Dergi Adı, Cilt</em>(Sayı), Sayfa–Sayfa. https://doi.org/xxxxx</li>
+    <li style="margin-bottom:6px;">YAZAR, B. B., &amp; YAZAR, C. C. (YIL). <em>Kitap adı</em> (Baskı no. bs.). Yayınevi.</li>
+    <li style="margin-bottom:0;">YAZAR, D. D. (YIL). <em>Tez başlığı</em> [Doktora tezi, Üniversite Adı]. Enstitü Adı.</li>
+  </ol>
+</div>
+
+<!-- FOOTER -->
+<div class="ep-footer" style="margin-top:32px;">
+  <p>© 2026 <strong>JeoTurizm EduPanel</strong> · POST_BASLIGI · POST_TARIH</p>
+  <p style="margin-top:6px;opacity:.55;">Prof. Dr. Ali Osman Öncel · aliosmanoncel.blogspot.com</p>
+</div>
+
+</div><!-- /#ep-wrap -->
+
+<script>
+(function(){
+
+/* TEMA */
+var btn = document.getElementById('ep-theme-btn');
+var ico = document.getElementById('ep-theme-icon');
+var wrap = document.getElementById('ep-wrap');
+if(btn) btn.onclick = function(){
+  var light = wrap.getAttribute('data-theme') === 'light';
+  wrap.setAttribute('data-theme', light ? 'dark' : 'light');
+  ico.textContent = light ? '🌙' : '☀️';
+};
+
+/* OKUMA SÜRESİ */
+var rt = document.getElementById('ep-read-time');
+if(rt && wrap){
+  var w = wrap.innerText.split(/\s+/).length;
+  rt.textContent = '~' + Math.max(1, Math.round(w/200)) + ' dk';
+}
+
+/* KART FADE-IN */
+if('IntersectionObserver' in window){
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}
+    });
+  },{threshold:0.1});
+  document.querySelectorAll('#ep-wrap .ep-card').forEach(function(c){
+    c.style.opacity='0';c.style.transform='translateY(16px)';
+    c.style.transition='opacity .45s ease,transform .45s ease';
+    obs.observe(c);
+  });
+}
+
+/* SOSYAL PAYLAŞIM */
+var url   = encodeURIComponent(window.location.href);
+var title = encodeURIComponent('POST_BASLIGI &#x2014; JeoTurizm EduPanel');
+var tw = document.getElementById('ep-tw');
+var wa = document.getElementById('ep-wa');
+var ml = document.getElementById('ep-ml');
+var cp = document.getElementById('ep-cp');
+if(tw) tw.href = 'https://twitter.com/intent/tweet?text=' + title + '&url=' + url;
+if(wa) wa.href = 'https://api.whatsapp.com/send?text=' + title + '%20' + url;
+if(ml) ml.href = 'mailto:?subject=' + title + '&body=' + url;
+if(cp) cp.onclick = function(){
+  navigator.clipboard.writeText(window.location.href).then(function(){
+    cp.textContent = '✅ Kopyalandı!';
+    setTimeout(function(){ cp.innerHTML = '🔗 Linki Kopyala'; }, 2000);
+  });
+};
+
+/* EXPORT YARDIMCI */
+function epLoading(msg){
+  var d = document.createElement('div');
+  d.style.cssText='position:fixed;inset:0;background:rgba(10,14,21,.92);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-family:sans-serif;gap:16px;';
+  d.innerHTML='<div style="font-size:36px;">⚙️</div><div style="font-size:16px;font-weight:700;">'+msg+'</div>';
+  document.body.appendChild(d);return d;
+}
+function epHide(d){if(d&&d.parentNode)d.parentNode.removeChild(d);}
+function epOpen(html){
+  var b=new Blob([html],{type:'text/html;charset=utf-8'});
+  var u=URL.createObjectURL(b);
+  var w=window.open(u,'_blank');
+  if(w)setTimeout(function(){URL.revokeObjectURL(u);},60000);
+}
+function epDown(content,filename,mime){
+  var b=new Blob([content],{type:mime});
+  var u=URL.createObjectURL(b);
+  var a=document.createElement('a');
+  a.href=u;a.download=filename;
+  document.body.appendChild(a);a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(u);},8000);
+}
+
+/* İÇERİK TOPLAYICI */
+function epBody(){
+  var html=''; var seen={};
+  var summ=document.querySelector('#ep-wrap .ep-summary p');
+  if(summ) html+='<h2>Özet</h2>\n<p>'+(summ.innerText||'').trim()+'</p>\n';
+  var stats=document.querySelectorAll('#ep-wrap .ep-stat');
+  if(stats.length){
+    html+='<h2>Temel Veriler</h2>\n<table><thead><tr><th>Değer</th><th>Konu</th><th>Not</th></tr></thead><tbody>\n';
+    stats.forEach(function(s){
+      var n=(s.querySelector('.ep-stat-num')||{}).innerText||'';
+      var l=(s.querySelector('.ep-stat-label')||{}).innerText||'';
+      var b=(s.querySelector('.ep-stat-sub')||{}).innerText||'';
+      html+='<tr><td><strong>'+n.trim()+'</strong></td><td>'+l.trim()+'</td><td>'+b.trim()+'</td></tr>\n';
+    });
+    html+='</tbody></table>\n';
+  }
+  document.querySelectorAll('#ep-wrap .ep-section').forEach(function(sec){
+    html+='<h2>'+(sec.innerText||'').trim()+'</h2>\n';
+  });
+  document.querySelectorAll('#ep-wrap .ep-step').forEach(function(step,i){
+    var h=(step.querySelector('h4')||{}).innerText||'';
+    var p=(step.querySelector('p')||{}).innerText||'';
+    if(h){html+='<h3>'+(i+1)+'. '+h.trim()+'</h3>\n';if(p)html+='<p>'+p.trim()+'</p>\n';}
+  });
+  document.querySelectorAll('#ep-wrap .ep-quote').forEach(function(q){
+    var t=(q.innerText||'').trim();
+    if(t.length>5&&!seen[t.slice(0,40)]){seen[t.slice(0,40)]=1;html+='<blockquote>'+t+'</blockquote>\n';}
+  });
+  document.querySelectorAll('#ep-wrap .ep-p').forEach(function(p){
+    var t=(p.innerText||'').trim();
+    if(t.length>10)html+='<p>'+t+'</p>\n';
+  });
+  document.querySelectorAll('#ep-wrap .ep-card').forEach(function(c){
+    var h=(c.querySelector('h4')||{}).innerText||'';
+    var p=(c.querySelector('p')||{}).innerText||'';
+    if(h.trim().length>2){html+='<h3>'+h.trim()+'</h3>\n';if(p.trim().length>5)html+='<p>'+p.trim()+'</p>\n';}
+  });
+  document.querySelectorAll('#ep-wrap .ep-box').forEach(function(box){
+    var t=(box.innerText||'').trim();
+    if(t.length>10&&!seen[t.slice(0,40)]){seen[t.slice(0,40)]=1;html+='<blockquote>'+t+'</blockquote>\n';}
+  });
+  var tables=document.querySelectorAll('#ep-wrap .ep-table');
+  tables.forEach(function(tbl,i){
+    html+='<h2>Tablo '+(i+1)+'</h2>\n<div style="column-span:all;">'+tbl.outerHTML+'</div>\n';
+  });
+  return html;
+}
+
+/* PDF */
+var pdfBtn=document.getElementById('ep-pdf');
+if(pdfBtn) pdfBtn.addEventListener('click',function(){
+  var ld=epLoading('PDF hazırlanıyor…');
+  try{
+    var body=epBody();
+    var now=new Date().toLocaleDateString('tr-TR',{year:'numeric',month:'long',day:'numeric'});
+    var html='<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8"><title>POST_BASLIGI &#x2014; JeoTurizm EduPanel</title>'
+    +'<style>@page{size:A4;margin:20mm 18mm 24mm 18mm;}*{box-sizing:border-box;}'
+    +'body{font-family:"Times New Roman",serif;font-size:10.5pt;line-height:1.75;color:#000;background:#fff;margin:0;}'
+    +'@media screen{body{background:#b0b8c8;padding:48px 0 60px;}.doc{width:210mm;margin:0 auto;background:#fff;box-shadow:0 8px 40px rgba(0,0,0,.28);padding:20mm 18mm 24mm;}}'
+    +'@media print{.pbar{display:none!important;}.doc{padding:0;box-shadow:none;}}'
+    +'.pbar{position:fixed;top:0;left:0;right:0;z-index:9999;background:#0f172a;color:#f1f5f9;padding:9px 20px;display:flex;align-items:center;font-family:Arial,sans-serif;font-size:12px;}'
+    +'.pbtn{margin-left:auto;background:#9b1c33;color:#fff;border:none;border-radius:6px;padding:8px 20px;font-size:12px;font-weight:bold;cursor:pointer;}'
+    +'.mast{border-top:3px solid #c41535;border-bottom:1px solid #c41535;padding:8pt 0 6pt;margin-bottom:14pt;display:flex;justify-content:space-between;}'
+    +'.jname{font-family:Arial,sans-serif;font-size:13pt;font-weight:900;color:#c41535;}'
+    +'.jmeta{font-size:8pt;color:#444;text-align:right;font-family:Arial,sans-serif;line-height:1.5;}'
+    +'.atitle{font-family:Arial,sans-serif;font-size:15pt;font-weight:700;margin:0 0 8pt;line-height:1.3;}'
+    +'.abox{border:1.5px solid #c41535;padding:9pt 11pt;margin:0 0 12pt;background:#fff5f7;}'
+    +'.albl{font-family:Arial,sans-serif;font-size:8.5pt;font-weight:700;color:#c41535;text-transform:uppercase;margin:0 0 4pt;}'
+    +'.atext{font-size:9.5pt;line-height:1.7;text-align:justify;margin:0;}'
+    +'.twocol{column-count:2;column-gap:14pt;column-rule:1px solid #dde;}'
+    +'h2{font-family:Arial,sans-serif;font-size:10.5pt;font-weight:700;color:#c41535;margin:14pt 0 5pt;border-bottom:1px solid #c41535;break-after:avoid;}'
+    +'h3{font-family:Arial,sans-serif;font-size:9.5pt;font-weight:700;font-style:italic;margin:10pt 0 4pt;break-after:avoid;}'
+    +'p{text-align:justify;font-size:9.5pt;margin:0 0 5pt;line-height:1.7;}'
+    +'blockquote{border-left:2.5px solid #c41535;padding:4pt 8pt;margin:7pt 0 7pt 10pt;font-size:9pt;font-style:italic;color:#333;text-align:justify;}'
+    +'ol,ul{padding-left:16pt;font-size:9pt;text-align:justify;}'
+    +'li{margin-bottom:3pt;text-align:justify;}'
+    +'table{width:100%;border-collapse:collapse;font-size:7.5pt;margin:10pt 0;column-span:all;}'
+    +'th{border-top:1.5px solid #c41535;border-bottom:1px solid #c41535;padding:3pt 4pt;font-family:Arial,sans-serif;font-weight:700;background:#fff5f7;}'
+    +'td{padding:2.5pt 4pt;border-bottom:1px solid #dde;}'
+    +'.col{column-span:all;margin-top:18pt;padding-top:8pt;border-top:1px solid #bbb;font-size:7.5pt;color:#777;font-family:Arial,sans-serif;text-align:center;}'
+    +'</style></head><body>'
+    +'<div class="pbar"><strong>📄 POST_BASLIGI &#x2014; JeoTurizm EduPanel</strong>'
+    +'<button class="pbtn" onclick="window.print()">🖨️ Yazdır / PDF Kaydet</button></div>'
+    +'<div class="doc"><div class="mast">'
+    +'<div><div class="jname">JeoTurizm EduPanel · POST_TUR</div>'
+    +'<div style="font-size:8pt;color:#444;font-family:Arial,sans-serif;margin-top:2pt;">aliosmanoncel.blogspot.com</div></div>'
+    +'<div class="jmeta">POST_TUR · POST_TARIH<br>Tarih: '+now+'</div></div>'
+    +'<div style="font-family:Arial,sans-serif;font-size:8.5pt;font-weight:700;color:#c41535;letter-spacing:1pt;text-transform:uppercase;margin:0 0 6pt;">POST_TUR · JeoTurizm EduPanel · POST_TARIH</div>'
+    +'<div class="atitle">POST_BASLIGI</div>'
+    +'<p style="font-size:9.5pt;font-family:Arial,sans-serif;margin:0 0 4pt;"><strong>Prof. Dr. Ali Osman Öncel</strong> &#x2014; Deprem Sismolojisti · Jeofizik Mühendisi</p>'
+    +'<p style="font-size:8.5pt;font-style:italic;font-family:Arial,sans-serif;color:#555;margin:0 0 8pt;">JeoTurizm EduPanel · POST_TARIH · aliosmanoncel.blogspot.com</p>'
+    +'<div class="abox"><div class="albl">Özet / Abstract</div>'
+    +'<p class="atext">POST_OZET_UZUN</p></div>'
+    +'<div class="twocol">'+body+'</div>'
+    +'<div class="col">&copy; 2026 JeoTurizm EduPanel &middot; Prof. Dr. Ali Osman &Ouml;ncel &middot; aliosmanoncel.blogspot.com &middot; '+now+'</div>'
+    +'</div></body></html>';
+    epHide(ld);epOpen(html);
+  }catch(e){epHide(ld);alert('PDF hatası: '+e.message);}
+});
+
+/* WORD */
+var wordBtn=document.getElementById('ep-word');
+if(wordBtn) wordBtn.addEventListener('click',function(){
+  var ld=epLoading('Word hazırlanıyor…');
+  try{
+    var body=epBody();
+    var now=new Date().toLocaleDateString('tr-TR',{year:'numeric',month:'long',day:'numeric'});
+    var html='<!DOCTYPE html>'
+    +'<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40" lang="tr">'
+    +'<head><meta charset="utf-8"><meta name=ProgId content=Word.Document>'
+    +'<title>POST_BASLIGI &#x2014; JeoTurizm EduPanel</title>'
+    +'<style>@page Section1{size:210mm 297mm;margin:25.4mm 19mm 25.4mm 19mm;}div.Section1{page:Section1;}'
+    +'body{font-family:"Times New Roman",serif;font-size:10.5pt;color:#000;line-height:1.75;}'
+    +'h1{font-family:Arial,sans-serif;font-size:15pt;font-weight:bold;margin:0 0 8pt;}'
+    +'h2{font-family:Arial,sans-serif;font-size:10.5pt;font-weight:bold;color:#c41535;margin:14pt 0 5pt;border-bottom:1pt solid #c41535;page-break-after:avoid;}'
+    +'h3{font-family:Arial,sans-serif;font-size:9.5pt;font-weight:bold;font-style:italic;margin:10pt 0 4pt;page-break-after:avoid;}'
+    +'p{text-align:justify;font-size:9.5pt;margin:0 0 5pt;line-height:16pt;}'
+    +'blockquote{border-left:2.5pt solid #c41535;padding-left:8pt;margin:7pt 0 7pt 10pt;font-style:italic;font-size:9pt;text-align:justify;}'
+    +'ol,ul{padding-left:16pt;font-size:9pt;text-align:justify;}'
+    +'li{margin-bottom:3pt;text-align:justify;}'
+    +'table{width:100%;border-collapse:collapse;font-size:7.5pt;margin:10pt 0;}'
+    +'th{border-top:1.5pt solid #c41535;border-bottom:1pt solid #c41535;padding:3pt 4pt;font-family:Arial,sans-serif;font-weight:bold;background:#fff5f7;}'
+    +'td{padding:2.5pt 4pt;border-bottom:1pt solid #dde;}'
+    +'p.col{font-family:Arial,sans-serif;font-size:7.5pt;color:#777;border-top:1pt solid #ccc;margin-top:18pt;padding-top:6pt;text-align:center;}'
+    +'</style></head><body><div class="Section1">'
+    +'<h1>POST_BASLIGI</h1>'
+    +'<p><strong>Prof. Dr. Ali Osman Öncel</strong> &#x2014; Deprem Sismolojisti · Jeofizik Mühendisi</p>'
+    +'<p><em>JeoTurizm EduPanel · POST_TUR · POST_TARIH</em></p>'
+    +'<p>Tarih: '+now+' · aliosmanoncel.blogspot.com</p>'
+    +body
+    +'<p class="col">&copy; 2026 JeoTurizm EduPanel &middot; Prof. Dr. Ali Osman &Ouml;ncel &middot; aliosmanoncel.blogspot.com &middot; '+now+'</p>'
+    +'</div></body></html>';
+    epHide(ld);
+    epDown(html,'JeoTurizm-EduPanel-POST_BASLIGI.doc','application/msword');
+  }catch(e){epHide(ld);alert('Word hatası: '+e.message);}
+});
+
+})();
+</script>
+
+<!-- Google Translate — Auto EN + görsel widget -->
+<script type="text/javascript">
+(function(){
+  function setCookie(n,v,d){var e=new Date();e.setTime(e.getTime()+(d*864e5));document.cookie=n+'='+v+';expires='+e.toUTCString()+';path=/';}
+  if(document.cookie.indexOf('googtrans')===-1){setCookie('googtrans','/tr/en',1);setCookie('googtrans','/tr/en',1);}
+})();
+function googleTranslateElementInit(){
+  new google.translate.TranslateElement({
+    pageLanguage:'tr',
+    includedLanguages:'en,tr,it,de,fr,es,ar,ru,pt,nl,pl',
+    layout:google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay:true
+  },'google_translate_element');
+}
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- TTS — Web Speech API -->
+<script>
+(function(){
+  var synth=window.speechSynthesis,btn=document.getElementById('tts-btn');
+  if(!synth||!btn) return;
+  var speaking=false,paused=false;
+  function getLang(){var m=document.cookie.match(/googtrans=\/[^/]+\/([^;]+)/);return m?m[1]:(document.documentElement.lang||'en');}
+  function getContent(){
+    var root=document.getElementById('ep-wrap')||document.body;
+    var clone=root.cloneNode(true);
+    clone.querySelectorAll('script,style,noscript,button,input,select,option,iframe,svg,#google_translate_element,.ep-share,.ep-footer,.ep-author-link,[class*="goog-"],[id*="goog"],[class*="VIpgJd"],[class*="skiptranslate"]').forEach(function(el){el.remove();});
+    return (clone.innerText||'').replace(/#[0-9a-fA-F]{3,8}\b/g,' ').replace(/\s{2,}/g,' ').trim().slice(0,50000);
+  }
+  function setState(s){
+    if(s==='playing'){btn.textContent='⏸ Duraklat';btn.style.background='linear-gradient(135deg,#92400e,#b45309)';}
+    else if(s==='paused'){btn.textContent='▶ Devam';btn.style.background='linear-gradient(135deg,#14532d,#166534)';}
+    else{btn.textContent='🔊 Dinle';btn.style.background='linear-gradient(135deg,#1e3a5f,#1e40af)';}
+  }
+  btn.addEventListener('click',function(){
+    if(!speaking&&!paused){synth.cancel();var utt=new SpeechSynthesisUtterance(getContent());utt.lang=getLang();utt.rate=0.92;utt.pitch=1;utt.onend=utt.onerror=function(){speaking=false;paused=false;setState('idle');};synth.speak(utt);speaking=true;setState('playing');}
+    else if(speaking){synth.pause();speaking=false;paused=true;setState('paused');}
+    else if(paused){synth.resume();paused=false;speaking=true;setState('playing');}
+  });
+  window.addEventListener('beforeunload',function(){synth.cancel();});
+})();
+</script>
