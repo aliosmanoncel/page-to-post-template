@@ -649,29 +649,79 @@ function epExportPDF(){
   const w=window.open('','_blank');
   w.document.write(`<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8"><title>Sismoloji Mühendisliği — Öncel 2026</title>
 <style>
-@page{size:A4;margin:2cm 2.2cm 2.5cm 2.2cm;}
-body{font-family:"Times New Roman",serif;font-size:11pt;line-height:1.8;color:#000;background:#fff;}
-h1{font-size:16pt;text-align:center;margin-bottom:6pt;}
-h2,h3{font-size:12pt;border-bottom:1pt solid #666;margin:16pt 0 6pt;}
-p,li,td{text-align:justify;hyphens:auto;}
-table{width:100%;border-collapse:collapse;font-size:9.5pt;margin:10pt 0;}
-th,td{border:1pt solid #ccc;padding:4pt 6pt;}th{background:#efefef;}
+@page{size:A4 portrait;margin:25mm 22mm 28mm 22mm;
+  @bottom-left{content:"Prof. Dr. Ali Osman Öncel · Sismoloji Mühendisliği";font-family:"Times New Roman",serif;font-size:8pt;color:#555;}
+  @bottom-right{content:"Sayfa " counter(page);font-family:"Times New Roman",serif;font-size:8pt;color:#555;}}
+*{box-sizing:border-box;}
+body{font-family:"Times New Roman",serif;font-size:11pt;line-height:1.85;color:#000;background:#fff;margin:0;padding:0;}
+@media screen{body{background:#cbd5e1;padding:60px 0 40px;}.doc-wrap{width:210mm;margin:0 auto;padding:25mm 22mm 30mm;background:#fff;box-shadow:0 6px 30px rgba(0,0,0,.2);min-height:297mm;}}
+@media print{body{background:#fff;}.print-bar{display:none!important;}.doc-wrap{width:100%;padding:0;box-shadow:none;}}
+.print-bar{position:fixed;top:0;left:0;right:0;background:#1e293b;color:#fff;padding:10px 22px;display:flex;align-items:center;gap:14px;font-family:sans-serif;font-size:13px;z-index:9999;}
+.btn-p{margin-left:auto;background:#4c1d95;color:#fff;border:none;border-radius:7px;padding:9px 22px;font-size:13px;font-weight:bold;cursor:pointer;}
+/* Başlık bloğu */
+.doc-title-block{text-align:center;border:1.5pt solid #4c1d95;padding:20pt 18pt 16pt;margin-bottom:20pt;}
+h1{font-size:15pt;font-weight:bold;text-align:center;margin:0 0 8pt;}
+.doc-author{font-size:11pt;font-weight:bold;text-align:center;margin:0 0 3pt;}
+.doc-affil{font-size:9.5pt;font-style:italic;text-align:center;color:#333;margin:0 0 3pt;}
+/* Bölüm başlıkları */
+.ep-section-title{font-size:11pt;font-weight:bold;border-bottom:1.5pt solid #4c1d95;padding-bottom:2pt;margin:16pt 0 7pt;page-break-after:avoid;}
+/* Paragraf */
+.ep-p{text-align:justify;hyphens:auto;font-size:10.5pt;line-height:1.8;margin-bottom:8pt;text-indent:1.2em;}
+.ep-section-title+.ep-p{text-indent:0;}
+/* Stats — 4 kutu yan yana */
+.ep-stats{display:table;width:100%;border-collapse:collapse;margin:10pt 0 14pt;}
+.ep-stat-card{display:table-cell;border:1pt solid #ccc;padding:7pt 8pt;text-align:center;vertical-align:middle;width:25%;}
+.ep-stat-num{font-size:16pt;font-weight:800;display:block;color:#000;}
+.ep-stat-lbl{font-size:8pt;display:block;color:#444;}
+/* Cards — 3 kutu yan yana */
+.ep-cards{display:table;width:100%;border-collapse:collapse;margin:8pt 0 12pt;}
+.ep-card{display:table-cell;width:33%;border:1pt solid #ccc;border-top:2.5pt solid #333;padding:8pt 10pt;vertical-align:top;}
+.ep-card h4{font-size:9.5pt;font-weight:bold;margin:0 0 5pt;}
+.ep-card p{font-size:8.5pt;text-align:justify;margin:0;}
+/* Tablo */
+table.ep-table{width:100%;border-collapse:collapse;font-size:9.5pt;margin:10pt 0;table-layout:fixed;}
+.ep-table th{background:#efefef;border:1pt solid #bbb;padding:5pt 7pt;text-align:left;font-weight:bold;}
+.ep-table td{border:1pt solid #bbb;padding:5pt 7pt;text-align:justify;hyphens:auto;vertical-align:middle;}
+.ep-table td:first-child{text-align:center;width:120pt;font-weight:bold;}
+/* Kutular */
+.ep-box-info{border:1pt solid #7c3aed;background:#f8f5ff;padding:8pt 10pt;margin:8pt 0;font-size:9.5pt;line-height:1.7;}
+.ep-box-q{border:1pt solid #c9a84c;background:#fffbe8;padding:7pt 10pt;margin:5pt 0;page-break-inside:avoid;}
+.ep-box-q .qnum{font-weight:bold;font-size:8.5pt;color:#7a5500;margin-bottom:3pt;display:block;}
+.ep-box-q .qtext{font-size:9.5pt;text-align:justify;}
+.ep-conclusion{border-left:3pt solid #166534;background:#f0fff0;padding:8pt 10pt;margin:8pt 0;}
+.ep-conclusion h4{font-size:10pt;font-weight:bold;margin:0 0 6pt;color:#144d26;}
+.ep-conclusion ul{margin:0;padding-left:1.3em;font-size:9.5pt;line-height:1.8;}
+.ep-quote{border-left:3pt solid #c9a84c;padding:7pt 10pt;font-style:italic;background:#fffdf0;margin:8pt 0;font-size:10pt;line-height:1.7;}
+.ep-report-bar{border:1pt solid #aaa;padding:7pt 10pt;margin:8pt 0;font-size:9.5pt;}
+/* Referanslar */
+.ep-ref{font-size:8.5pt;padding-left:2.2em;text-indent:-2.2em;margin-bottom:6pt;line-height:1.65;}
+.ep-ref a{color:#000;text-decoration:underline;}
+/* Yazar */
+.ep-author{display:flex;gap:12pt;align-items:center;border:1pt solid #ccc;padding:8pt 10pt;margin:10pt 0;}
+.ep-author img{display:none;}
+.ep-author-info h4{font-size:10pt;font-weight:bold;margin:0 0 3pt;}
+.ep-author-info p{font-size:8.5pt;margin:0;color:#333;}
+/* Gizlenenler */
 .ep-export,.ep-cta,.ep-share,.ep-toolbar{display:none!important;}
-.ep-conclusion{border-left:3pt solid #166534;background:#f0fff0;padding:8pt 10pt;}
-.ep-box-q{border:1pt solid #c9a84c;background:#fffbe8;padding:7pt 9pt;margin:5pt 0;}
-.ep-box-info{border:1pt solid #7c3aed;background:#f5f0ff;padding:7pt 9pt;font-size:9.5pt;}
-.ep-quote{border-left:3pt solid #c9a84c;padding:6pt 10pt;font-style:italic;background:#fffdf0;}
-.ep-ref{font-size:8.5pt;padding-left:2em;text-indent:-2em;margin-bottom:5pt;}
-.print-bar{position:fixed;top:0;left:0;right:0;background:#1e293b;color:#fff;padding:9px 18px;display:flex;align-items:center;font-family:sans-serif;font-size:13px;z-index:999;}
-.btn-p{margin-left:auto;background:#4c1d95;color:#fff;border:none;border-radius:7px;padding:8px 20px;font-size:13px;font-weight:bold;cursor:pointer;}
-@media print{.print-bar{display:none!important;}}
+p{text-align:justify;hyphens:auto;}
+li{text-align:justify;line-height:1.8;}
 </style></head><body>
-<div class="print-bar"><div><strong>📄 Sismoloji Mühendisliği — Prof. Dr. Ali Osman Öncel · 2026</strong></div><button class="btn-p" onclick="window.print()">🖨️ Yazdır / PDF</button></div>
-<h1>Sismoloji Mühendisliği: Türkiye'de Neden Bağımsız Bir Disiplin Olmalı?</h1>
-<p style="text-align:center;font-style:italic;">Prof. Dr. Ali Osman Öncel · İÜC Jeofizik Mühendisliği · 2026</p>
-<hr>
+<div class="print-bar">
+  <div><strong>📄 Sismoloji Mühendisliği — Prof. Dr. Ali Osman Öncel · 2026</strong><br><span style="font-size:11px;color:#94a3b8;">Kağıt: A4 · Yazdır / PDF Olarak Kaydet</span></div>
+  <button class="btn-p" onclick="window.print()">🖨️ Yazdır / PDF Kaydet</button>
+</div>
+<div class="doc-wrap">
+<div class="doc-title-block">
+  <div style="font-size:8pt;font-weight:bold;letter-spacing:0.1em;text-transform:uppercase;color:#4c1d95;margin-bottom:8pt;">Review Article · Seismology Engineering Education · Turkey</div>
+  <h1>Sismoloji Mühendisliği: Türkiye'de Neden Bağımsız Bir Disiplin Olmalı?</h1>
+  <hr style="border:none;border-top:1pt solid #aaa;margin:8pt 40pt;">
+  <div class="doc-author">Prof. Dr. Ali Osman Öncel</div>
+  <div class="doc-affil">İstanbul Üniversitesi–Cerrahpaşa, Jeofizik Mühendisliği Bölümü · ali.oncel@iuc.edu.tr</div>
+  <div style="font-size:8.5pt;color:#555;margin-top:4pt;font-style:italic;">Review Article · Haziran 2026</div>
+</div>
+<hr style="border:none;border-top:1.5pt solid #4c1d95;margin:0 0 16pt;">
 ${epBody()}
-</body></html>`);w.document.close();
+</div></body></html>`);w.document.close();
 }
 function epExportWord(){
   const blob=new Blob([`<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" lang="tr"><head><meta charset="utf-8"><title>Sismoloji Mühendisliği</title><style>body{font-family:"Times New Roman",serif;font-size:11pt;line-height:1.8;}h1{font-size:16pt;text-align:center;}table{border-collapse:collapse;width:100%;}th,td{border:1pt solid #ccc;padding:4pt;}p{text-align:justify;}</style></head><body><h1>Sismoloji Mühendisliği: Türkiye'de Neden Bağımsız Bir Disiplin Olmalı?</h1><p><strong>Prof. Dr. Ali Osman Öncel</strong> · İÜC Jeofizik Mühendisliği · 2026</p>${epBody()}</body></html>`],{type:'application/msword'});
