@@ -443,6 +443,21 @@
     </div>
   </div>
 
+  <!-- ══ VİDEO ══ -->
+  <div style="margin:0 16px 4px;border-radius:14px;overflow:hidden;border:1px solid var(--ep-border);background:var(--ep-surface);">
+    <div style="padding:10px 16px 6px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--ep-border);">
+      <span style="font-size:1em;">🎬</span>
+      <span style="font-size:0.82em;font-weight:700;color:var(--ep-accent3);">Özet Video · Summary Video</span>
+      <span style="margin-left:auto;font-size:0.75em;color:var(--ep-muted);">Sismoloji Mühendisliği · 2026</span>
+    </div>
+    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+      <iframe src="https://www.youtube.com/embed/AGIDe084sKE"
+        style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+        allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+        allowfullscreen loading="lazy" title="Sismoloji Mühendisliği Özet Video"></iframe>
+    </div>
+  </div>
+
   <!-- ══ CONTENT ══ -->
   <div class="ep-content" id="ep-body">
 
@@ -646,82 +661,71 @@ document.querySelectorAll('#ep-wrap .ep-card').forEach(c=>obs.observe(c));
 /* ── Export helpers ── */
 function epBody(){return document.getElementById('ep-body').innerHTML;}
 function epExportPDF(){
-  const w=window.open('','_blank');
-  w.document.write(`<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8"><title>Sismoloji Mühendisliği — Öncel 2026</title>
-<style>
-@page{size:A4 portrait;margin:25mm 22mm 28mm 22mm;
-  @bottom-left{content:"Prof. Dr. Ali Osman Öncel · Sismoloji Mühendisliği";font-family:"Times New Roman",serif;font-size:8pt;color:#555;}
-  @bottom-right{content:"Sayfa " counter(page);font-family:"Times New Roman",serif;font-size:8pt;color:#555;}}
-*{box-sizing:border-box;}
-body{font-family:"Times New Roman",serif;font-size:11pt;line-height:1.85;color:#000;background:#fff;margin:0;padding:0;}
-@media screen{body{background:#cbd5e1;padding:60px 0 40px;}.doc-wrap{width:210mm;margin:0 auto;padding:25mm 22mm 30mm;background:#fff;box-shadow:0 6px 30px rgba(0,0,0,.2);min-height:297mm;}}
-@media print{body{background:#fff;}.print-bar{display:none!important;}.doc-wrap{width:100%;padding:0;box-shadow:none;}}
-.print-bar{position:fixed;top:0;left:0;right:0;background:#1e293b;color:#fff;padding:10px 22px;display:flex;align-items:center;gap:14px;font-family:sans-serif;font-size:13px;z-index:9999;}
-.btn-p{margin-left:auto;background:#4c1d95;color:#fff;border:none;border-radius:7px;padding:9px 22px;font-size:13px;font-weight:bold;cursor:pointer;}
-/* Başlık bloğu */
-.doc-title-block{text-align:center;border:1.5pt solid #4c1d95;padding:20pt 18pt 16pt;margin-bottom:20pt;}
-h1{font-size:15pt;font-weight:bold;text-align:center;margin:0 0 8pt;}
-.doc-author{font-size:11pt;font-weight:bold;text-align:center;margin:0 0 3pt;}
-.doc-affil{font-size:9.5pt;font-style:italic;text-align:center;color:#333;margin:0 0 3pt;}
-/* Bölüm başlıkları */
-.ep-section-title{font-size:11pt;font-weight:bold;border-bottom:1.5pt solid #4c1d95;padding-bottom:2pt;margin:16pt 0 7pt;page-break-after:avoid;}
-/* Paragraf */
-.ep-p{text-align:justify;hyphens:auto;font-size:10.5pt;line-height:1.8;margin-bottom:8pt;text-indent:1.2em;}
-.ep-section-title+.ep-p{text-indent:0;}
-/* Stats — 4 kutu yan yana */
-.ep-stats{display:table;width:100%;border-collapse:collapse;margin:10pt 0 14pt;}
-.ep-stat-card{display:table-cell;border:1pt solid #ccc;padding:7pt 8pt;text-align:center;vertical-align:middle;width:25%;}
-.ep-stat-num{font-size:16pt;font-weight:800;display:block;color:#000;}
-.ep-stat-lbl{font-size:8pt;display:block;color:#444;}
-/* Cards — 3 kutu yan yana */
-.ep-cards{display:table;width:100%;border-collapse:collapse;margin:8pt 0 12pt;}
-.ep-card{display:table-cell;width:33%;border:1pt solid #ccc;border-top:2.5pt solid #333;padding:8pt 10pt;vertical-align:top;}
-.ep-card h4{font-size:9.5pt;font-weight:bold;margin:0 0 5pt;}
-.ep-card p{font-size:8.5pt;text-align:justify;margin:0;}
-/* Tablo */
-table.ep-table{width:100%;border-collapse:collapse;font-size:9.5pt;margin:10pt 0;table-layout:fixed;}
-.ep-table th{background:#efefef;border:1pt solid #bbb;padding:5pt 7pt;text-align:left;font-weight:bold;}
-.ep-table td{border:1pt solid #bbb;padding:5pt 7pt;text-align:justify;hyphens:auto;vertical-align:middle;}
-.ep-table td:first-child{text-align:center;width:120pt;font-weight:bold;}
-/* Kutular */
-.ep-box-info{border:1pt solid #7c3aed;background:#f8f5ff;padding:8pt 10pt;margin:8pt 0;font-size:9.5pt;line-height:1.7;}
-.ep-box-q{border:1pt solid #c9a84c;background:#fffbe8;padding:7pt 10pt;margin:5pt 0;page-break-inside:avoid;}
-.ep-box-q .qnum{font-weight:bold;font-size:8.5pt;color:#7a5500;margin-bottom:3pt;display:block;}
-.ep-box-q .qtext{font-size:9.5pt;text-align:justify;}
-.ep-conclusion{border-left:3pt solid #166534;background:#f0fff0;padding:8pt 10pt;margin:8pt 0;}
-.ep-conclusion h4{font-size:10pt;font-weight:bold;margin:0 0 6pt;color:#144d26;}
-.ep-conclusion ul{margin:0;padding-left:1.3em;font-size:9.5pt;line-height:1.8;}
-.ep-quote{border-left:3pt solid #c9a84c;padding:7pt 10pt;font-style:italic;background:#fffdf0;margin:8pt 0;font-size:10pt;line-height:1.7;}
-.ep-report-bar{border:1pt solid #aaa;padding:7pt 10pt;margin:8pt 0;font-size:9.5pt;}
-/* Referanslar */
-.ep-ref{font-size:8.5pt;padding-left:2.2em;text-indent:-2.2em;margin-bottom:6pt;line-height:1.65;}
-.ep-ref a{color:#000;text-decoration:underline;}
-/* Yazar */
-.ep-author{display:flex;gap:12pt;align-items:center;border:1pt solid #ccc;padding:8pt 10pt;margin:10pt 0;}
-.ep-author img{display:none;}
-.ep-author-info h4{font-size:10pt;font-weight:bold;margin:0 0 3pt;}
-.ep-author-info p{font-size:8.5pt;margin:0;color:#333;}
-/* Gizlenenler */
-.ep-export,.ep-cta,.ep-share,.ep-toolbar{display:none!important;}
-p{text-align:justify;hyphens:auto;}
-li{text-align:justify;line-height:1.8;}
-</style></head><body>
-<div class="print-bar">
-  <div><strong>📄 Sismoloji Mühendisliği — Prof. Dr. Ali Osman Öncel · 2026</strong><br><span style="font-size:11px;color:#94a3b8;">Kağıt: A4 · Yazdır / PDF Olarak Kaydet</span></div>
-  <button class="btn-p" onclick="window.print()">🖨️ Yazdır / PDF Kaydet</button>
-</div>
-<div class="doc-wrap">
-<div class="doc-title-block">
-  <div style="font-size:8pt;font-weight:bold;letter-spacing:0.1em;text-transform:uppercase;color:#4c1d95;margin-bottom:8pt;">Review Article · Seismology Engineering Education · Turkey</div>
-  <h1>Sismoloji Mühendisliği: Türkiye'de Neden Bağımsız Bir Disiplin Olmalı?</h1>
-  <hr style="border:none;border-top:1pt solid #aaa;margin:8pt 40pt;">
-  <div class="doc-author">Prof. Dr. Ali Osman Öncel</div>
-  <div class="doc-affil">İstanbul Üniversitesi–Cerrahpaşa, Jeofizik Mühendisliği Bölümü · ali.oncel@iuc.edu.tr</div>
-  <div style="font-size:8.5pt;color:#555;margin-top:4pt;font-style:italic;">Review Article · Haziran 2026</div>
-</div>
-<hr style="border:none;border-top:1.5pt solid #4c1d95;margin:0 0 16pt;">
-${epBody()}
-</div></body></html>`);w.document.close();
+  var now=new Date().toLocaleDateString('tr-TR',{year:'numeric',month:'long',day:'numeric'});
+  var body=epBody();
+  var html='<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8"><title>Sismoloji Mühendisliği — JeoTurizm EduPanel</title>'
+  +'<style>@page{size:A4;margin:20mm 18mm 24mm 18mm;}*{box-sizing:border-box;}'
+  +'body{font-family:"Times New Roman",serif;font-size:10.5pt;line-height:1.75;color:#000;background:#fff;margin:0;}'
+  +'@media screen{body{background:#b0b8c8;padding:48px 0 60px;}.doc{width:210mm;margin:0 auto;background:#fff;box-shadow:0 8px 40px rgba(0,0,0,.28);padding:20mm 18mm 24mm;}}'
+  +'@media print{.pbar{display:none!important;}.doc{padding:0;box-shadow:none;}}'
+  +'.pbar{position:fixed;top:0;left:0;right:0;z-index:9999;background:#0f172a;color:#f1f5f9;padding:9px 20px;display:flex;align-items:center;font-family:Arial,sans-serif;font-size:12px;}'
+  +'.pbtn{margin-left:auto;background:#4c1d95;color:#fff;border:none;border-radius:6px;padding:8px 20px;font-size:12px;font-weight:bold;cursor:pointer;}'
+  +'.mast{border-top:3px solid #4c1d95;border-bottom:1px solid #4c1d95;padding:8pt 0 6pt;margin-bottom:14pt;display:flex;justify-content:space-between;}'
+  +'.jname{font-family:Arial,sans-serif;font-size:13pt;font-weight:900;color:#4c1d95;}'
+  +'.jmeta{font-size:8pt;color:#444;text-align:right;font-family:Arial,sans-serif;line-height:1.5;}'
+  +'.atitle{font-family:Arial,sans-serif;font-size:15pt;font-weight:700;margin:0 0 8pt;line-height:1.3;}'
+  +'.abox{border:1.5px solid #4c1d95;padding:9pt 11pt;margin:0 0 12pt;background:#f8f5ff;}'
+  +'.albl{font-family:Arial,sans-serif;font-size:8.5pt;font-weight:700;color:#4c1d95;text-transform:uppercase;margin:0 0 4pt;}'
+  +'.atext{font-size:9.5pt;line-height:1.7;text-align:justify;margin:0;}'
+  +'.twocol{column-count:2;column-gap:14pt;column-rule:1px solid #dde;}'
+  +'h2,.ep-section-title{font-family:Arial,sans-serif;font-size:10.5pt;font-weight:700;color:#4c1d95;margin:14pt 0 5pt;border-bottom:1px solid #4c1d95;break-after:avoid;column-span:all;}'
+  +'h3{font-family:Arial,sans-serif;font-size:9.5pt;font-weight:700;font-style:italic;margin:10pt 0 4pt;break-after:avoid;}'
+  +'p,.ep-p{text-align:justify;font-size:9.5pt;margin:0 0 5pt;line-height:1.7;}'
+  +'.ep-quote,.ep-quote *{border-left:2.5px solid #4c1d95;padding:4pt 8pt;margin:7pt 0 7pt 10pt;font-size:9pt;font-style:italic;color:#333;text-align:justify;column-span:all;}'
+  +'ol,ul{padding-left:16pt;font-size:9pt;text-align:justify;}li{margin-bottom:3pt;text-align:justify;}'
+  +'table,.ep-table{width:100%;border-collapse:collapse;font-size:7.5pt;margin:10pt 0;column-span:all;table-layout:fixed;}'
+  +'th{border-top:1.5px solid #4c1d95;border-bottom:1px solid #4c1d95;padding:3pt 4pt;font-family:Arial,sans-serif;font-weight:700;background:#f8f5ff;}'
+  +'td{padding:2.5pt 4pt;border-bottom:1px solid #dde;text-align:justify;}'
+  +'td:first-child{text-align:center;font-weight:700;width:80pt;}'
+  +'.ep-stats{display:table;width:100%;border-collapse:collapse;margin:8pt 0;column-span:all;}'
+  +'.ep-stat-card{display:table-cell;border:1px solid #ccc;padding:6pt 8pt;text-align:center;vertical-align:middle;}'
+  +'.ep-stat-num{font-size:14pt;font-weight:800;display:block;}'
+  +'.ep-stat-lbl{font-size:7.5pt;display:block;color:#444;}'
+  +'.ep-cards{display:table;width:100%;border-collapse:collapse;margin:8pt 0;column-span:all;}'
+  +'.ep-card{display:table-cell;width:33%;border:1px solid #ccc;border-top:2px solid #4c1d95;padding:7pt 9pt;vertical-align:top;}'
+  +'.ep-card h4{font-size:9pt;font-weight:bold;margin:0 0 4pt;font-family:Arial,sans-serif;}'
+  +'.ep-card p{font-size:8pt;margin:0;}'
+  +'.ep-box-info{border:1px solid #7c3aed;background:#f8f5ff;padding:6pt 8pt;margin:6pt 0;font-size:9pt;column-span:all;}'
+  +'.ep-box-q{border:1px solid #c9a84c;background:#fffbe8;padding:6pt 8pt;margin:4pt 0;break-inside:avoid;}'
+  +'.ep-box-q .qnum{font-weight:bold;font-size:8pt;color:#7a5500;margin-bottom:2pt;display:block;}'
+  +'.ep-box-q .qtext{font-size:9pt;text-align:justify;}'
+  +'.ep-conclusion{border-left:3px solid #166534;background:#f0fff0;padding:7pt 9pt;margin:7pt 0;column-span:all;}'
+  +'.ep-conclusion h4{font-size:9.5pt;font-weight:bold;margin:0 0 5pt;color:#144d26;font-family:Arial,sans-serif;}'
+  +'.ep-conclusion ul{margin:0;padding-left:1.2em;font-size:9pt;line-height:1.8;}'
+  +'.ep-report-bar{border:1px solid #aaa;padding:5pt 8pt;margin:6pt 0;font-size:9pt;column-span:all;}'
+  +'.ep-ref{font-size:8pt;padding-left:2em;text-indent:-2em;margin-bottom:5pt;line-height:1.6;}'
+  +'.ep-ref a{color:#000;text-decoration:underline;}'
+  +'.ep-author{border:1px solid #ccc;padding:7pt;margin:8pt 0;column-span:all;font-size:9pt;}'
+  +'.ep-export,.ep-cta,.ep-share,.ep-toolbar,.ep-author img{display:none!important;}'
+  +'.col{column-span:all;margin-top:16pt;padding-top:6pt;border-top:1px solid #bbb;font-size:7.5pt;color:#777;font-family:Arial,sans-serif;text-align:center;}'
+  +'</style></head><body>'
+  +'<div class="pbar"><strong>📄 Sismoloji Mühendisliği — JeoTurizm EduPanel · Prof. Dr. Ali Osman Öncel</strong>'
+  +'<button class="pbtn" onclick="window.print()">🖨️ Yazdır / PDF Kaydet</button></div>'
+  +'<div class="doc"><div class="mast">'
+  +'<div><div class="jname">JeoTurizm EduPanel · Review Article</div>'
+  +'<div style="font-size:8pt;color:#444;font-family:Arial,sans-serif;margin-top:2pt;">aliosmanoncel.blogspot.com</div></div>'
+  +'<div class="jmeta">Review Article · Haziran 2026<br>Tarih: '+now+'</div></div>'
+  +'<div style="font-family:Arial,sans-serif;font-size:8.5pt;font-weight:700;color:#4c1d95;letter-spacing:1pt;text-transform:uppercase;margin:0 0 6pt;">Sismoloji Mühendisliği · Akademik Yapılanma · Disiplinlerarası Eğitim · TBDY-2018</div>'
+  +'<div class="atitle">Sismoloji Mühendisliği: Türkiye\'de Neden Bağımsız Bir Disiplin Olmalı?</div>'
+  +'<p style="font-size:9.5pt;font-family:Arial,sans-serif;margin:0 0 4pt;"><strong>Prof. Dr. Ali Osman Öncel</strong> — Deprem Sismolojisti · Jeofizik Mühendisi</p>'
+  +'<p style="font-size:8.5pt;font-style:italic;font-family:Arial,sans-serif;color:#555;margin:0 0 8pt;">İstanbul Üniversitesi–Cerrahpaşa, Jeofizik Mühendisliği Bölümü · Haziran 2026</p>'
+  +'<div class="abox"><div class="albl">Özet / Abstract</div>'
+  +'<p class="atext">Türkiye gibi aktif fay hatları üzerinde yer alan ülkelerde deprem riski, yalnızca bilimsel değil, aynı zamanda mühendislik ve toplumsal bir sorun olarak ele alınmalıdır. Bu yazıda Sismoloji Mühendisliği ile Deprem Mühendisliği arasındaki farklar açıklanmakta ve Türkiye\'de bağımsız bir Sismoloji Mühendisliği programının gerekliliği savunulmaktadır. / In countries situated on active fault lines like Turkey, earthquake risk must be addressed not only as a scientific issue but as an engineering and societal challenge. This article argues for the establishment of Seismology Engineering as an independent academic discipline in Turkey.</p></div>'
+  +'<div class="twocol">'+body+'</div>'
+  +'<div class="col">&copy; 2026 JeoTurizm EduPanel &middot; Prof. Dr. Ali Osman &Ouml;ncel &middot; aliosmanoncel.blogspot.com &middot; '+now+'</div>'
+  +'</div></body></html>';
+  var w=window.open('','_blank');
+  w.document.write(html);w.document.close();
 }
 function epExportWord(){
   const blob=new Blob([`<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" lang="tr"><head><meta charset="utf-8"><title>Sismoloji Mühendisliği</title><style>body{font-family:"Times New Roman",serif;font-size:11pt;line-height:1.8;}h1{font-size:16pt;text-align:center;}table{border-collapse:collapse;width:100%;}th,td{border:1pt solid #ccc;padding:4pt;}p{text-align:justify;}</style></head><body><h1>Sismoloji Mühendisliği: Türkiye'de Neden Bağımsız Bir Disiplin Olmalı?</h1><p><strong>Prof. Dr. Ali Osman Öncel</strong> · İÜC Jeofizik Mühendisliği · 2026</p>${epBody()}</body></html>`],{type:'application/msword'});
